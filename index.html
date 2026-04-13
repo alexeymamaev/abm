@@ -23,9 +23,16 @@
       <a href="#about" class="nav-link">О методе</a>
       <a href="#search" class="nav-link">Практики</a>
       <a href="#book" class="nav-link">Дети с неограниченными возможностями</a>
-      <!-- <a href="#" class="btn-pill btn-pill--nav">Контакты</a> -->
     </div>
+    <button class="burger" aria-label="Меню" onclick="document.querySelector('.nav').classList.toggle('nav--open')">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="nav-mobile">
+    <a href="#about" class="nav-mobile__link" onclick="document.querySelector('.nav').classList.remove('nav--open')">О методе</a>
+    <a href="#search" class="nav-mobile__link" onclick="document.querySelector('.nav').classList.remove('nav--open')">Практики</a>
+    <a href="#book" class="nav-mobile__link" onclick="document.querySelector('.nav').classList.remove('nav--open')">Дети с неограниченными возможностями</a>
+  </div>
 
   <!-- ===== HERO ===== -->
   <section class="hero">

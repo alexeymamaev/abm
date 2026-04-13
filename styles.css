@@ -113,6 +113,45 @@ img {
     padding: 8px 20px;
 }
 
+/* Burger */
+.burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
+.burger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--fg);
+    border-radius: 1px;
+    transition: transform 0.2s, opacity 0.2s;
+}
+.nav--open .burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav--open .burger span:nth-child(2) { opacity: 0; }
+.nav--open .burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu */
+.nav-mobile {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 0 20px;
+}
+.nav-mobile__link {
+    font-size: 15px;
+    color: var(--fg-secondary);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+}
+.nav-mobile__link:hover {
+    color: var(--fg);
+}
+
 .btn-pill--action {
     padding: 10px 10px 10px 20px;
 }
@@ -991,7 +1030,7 @@ img {
     }
     .pract-card {
         height: auto;
-        aspect-ratio: 4 / 5;
+        aspect-ratio: 3 / 4;
         max-width: 100%;
     }
 
@@ -1100,8 +1139,14 @@ img {
         padding: 0 16px;
     }
 
-    .nav-right .nav-link {
+    .nav-right {
         display: none;
+    }
+    .burger {
+        display: flex;
+    }
+    .nav--open + .nav-mobile {
+        display: flex;
     }
 
     .hero-heading {
