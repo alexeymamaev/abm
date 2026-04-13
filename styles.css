@@ -422,7 +422,7 @@ img {
     flex: 1 1 calc(33.333% - 11px);
     min-width: 240px;
     max-width: calc(33.333% - 11px);
-    height: 360px;
+    height: 460px;
     border-radius: var(--radius);
     overflow: hidden;
     position: relative;
@@ -990,7 +990,8 @@ img {
         gap: 12px;
     }
     .pract-card {
-        height: 280px;
+        height: auto;
+        aspect-ratio: 4 / 5;
         max-width: 100%;
     }
 
