@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>О методе — Сообщество практиков АБМ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F1ECE4;
+    --bg-soft:#EDE7DD;
+    --card:#E8E2D6;
+    --card-2:#E1DAC9;
+    --ink:#15161A;
+    --ink-2:#2B2D33;
+    --ink-3:#4B4D55;
+    --muted:#7A766B;
+    --line: rgba(21,22,26,.10);
+    --line-2: rgba(21,22,26,.06);
+    --pill:#FFFFFF;
+    --clay:#A8533F;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .container{max-width:1240px;margin:0 auto;padding:0 32px}
+  .container.narrow{max-width:920px}
+  .display{font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-0.02em;line-height:0.98}
+  .serif{font-family:'Source Serif 4', Georgia, serif}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
+
+  /* HEADER */
+  header.top{padding:28px 0;}
+  .top-row{display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:14px}
+  .brand .leaf{width:18px;height:18px;display:inline-grid;place-items:center}
+  nav.menu{display:flex;gap:36px;font-size:14px;color:var(--ink-2)}
+  nav.menu a{opacity:.85}
+  nav.menu a.active{opacity:1;font-weight:600}
+  nav.menu a:hover{opacity:1}
+
+  /* PAGE HERO */
+  .hero{padding:32px 0 80px}
+  .crumbs{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin-bottom:36px}
+  .crumbs .sep{opacity:.5}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center}
+  .hero h1{font-size:88px;margin:18px 0 22px;letter-spacing:-0.025em}
+  .hero .sub{font-size:20px;line-height:1.45;color:var(--ink-2);max-width:520px;margin:0 0 28px}
+  .hero .quote{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:20px;line-height:1.45;color:var(--ink);max-width:480px;border-left:2px solid var(--ink);padding:4px 0 4px 18px;margin:0}
+  .hero .quote cite{display:block;margin-top:10px;font-style:normal;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-family:'JetBrains Mono',monospace}
+  .hero-photo{aspect-ratio:4/5;background:#7E3A2A;border-radius:18px;overflow:hidden;position:relative}
+  .hero-photo .ph-stripes{position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.04) 0 14px, rgba(0,0,0,.06) 14px 28px)}
+  .hero-photo .ph-tag{position:absolute;left:18px;bottom:18px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);background:rgba(0,0,0,.3);padding:6px 9px;border-radius:6px}
+  .hero-photo .ph-circle{position:absolute;right:24px;top:24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.65);border:1px solid rgba(255,255,255,.4);padding:5px 9px;border-radius:999px}
+
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--pill);border:1px solid var(--line);padding:7px 14px;border-radius:999px;font-size:13px;color:var(--ink-2)}
+  .pill .dot{width:6px;height:6px;border-radius:50%;background:#3a6e3e}
+
+  /* BTN */
+  .btn{display:inline-flex;align-items:center;gap:10px;background:#15161A;color:#fff;padding:9px 12px 9px 18px;border-radius:999px;font-size:13.5px;font-weight:500;border:0;cursor:pointer;font-family:inherit}
+  .btn .arr{width:24px;height:24px;background:#fff;color:#15161A;border-radius:50%;display:grid;place-items:center}
+  .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn.ghost .arr{background:#15161A;color:#fff}
+
+  /* SECTION SHELL */
+  section.block{padding:48px 0 64px}
+  .sec-eyebrow{display:flex;align-items:center;gap:14px;color:var(--muted)}
+  .sec-eyebrow .ln{flex:1;height:1px;background:var(--line)}
+  .sec-title{font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-0.02em;line-height:1.04;font-size:48px;margin:18px 0 0;max-width:760px}
+
+  /* О МЕТОДЕ — editorial */
+  .about{display:grid;grid-template-columns:240px 1fr;gap:64px;align-items:start;padding:24px 0 40px}
+  .about .side h2{font-family:'Manrope',sans-serif;font-weight:800;font-size:36px;letter-spacing:-0.02em;margin:8px 0 12px;line-height:1.05}
+  .about .side .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .about .side .meta{margin-top:24px;font-size:13px;color:var(--ink-3);line-height:1.5}
+  .about .side .meta div + div{margin-top:14px;padding-top:14px;border-top:1px solid var(--line-2)}
+  .about .body p{font-family:'Source Serif 4',Georgia,serif;font-size:20px;line-height:1.55;color:var(--ink-2);margin:0 0 22px;letter-spacing:-0.005em}
+  .about .body p strong{color:var(--ink);font-weight:500}
+  .about .body p:first-child{font-size:24px;line-height:1.45;color:var(--ink)}
+  .about .body p:first-child::first-letter{font-weight:600}
+
+  /* FROM FIXING TO CONNECTING — softer */
+  .ftc{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;background:var(--bg-soft);border-radius:24px;padding:8px;border:1px solid var(--line-2)}
+  .ftc .col{padding:36px 36px;display:flex;flex-direction:column;gap:14px;justify-content:flex-start}
+  .ftc .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .ftc h3{font-family:'Manrope',sans-serif;font-weight:700;font-size:30px;letter-spacing:-0.02em;line-height:1.1;margin:0}
+  .ftc p{font-size:15px;line-height:1.6;color:var(--ink-2);margin:0}
+  .ftc .col p strong{color:var(--ink);font-weight:600}
+  .ftc .arrow{align-self:center;width:48px;height:48px;border-radius:50%;background:#fff;color:#15161A;display:grid;place-items:center;border:1px solid var(--line)}
+  .ftc .col.b{position:relative}
+  .ftc .col.b::before{content:"";position:absolute;left:0;top:24px;bottom:24px;width:1px;background:var(--line-2);display:none}
+  @media(min-width:1080px){
+    .ftc .col.b::before{display:block;left:-1px}
+  }
+
+  /* WHO IS IT FOR */
+  .who-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:28px;flex-wrap:wrap}
+  .who-tabs{display:inline-flex;background:#EAE4D9;border-radius:999px;padding:5px;gap:4px}
+  .who-tabs button{font-family:inherit;font-size:13.5px;font-weight:500;padding:9px 22px;border-radius:999px;border:0;background:transparent;color:var(--ink-2);cursor:pointer}
+  .who-tabs button.on{background:#15161A;color:#fff}
+  .who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .who-card{background:var(--card);border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:12px;min-height:200px}
+  .who-card .num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.16em}
+  .who-card h4{font-family:'Manrope',sans-serif;font-weight:700;font-size:19px;letter-spacing:-0.01em;margin:0;line-height:1.2}
+  .who-card p{font-size:13.5px;line-height:1.5;color:var(--ink-2);margin:0}
+
+  /* NINE — editorial long-form */
+  .nine-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:56px}
+  .nine-head p{font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.55;color:var(--ink-2);margin:0;max-width:520px}
+
+  .essential{display:grid;grid-template-columns:280px 1fr;gap:64px;padding:48px 0;border-top:1px solid var(--line-2);align-items:start}
+  .essential:last-child{border-bottom:1px solid var(--line-2)}
+  .essential .anchor{position:sticky;top:24px}
+  .essential .num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+  .essential .ttl{font-family:'Manrope',sans-serif;font-weight:800;font-size:42px;letter-spacing:-0.025em;line-height:1.0;margin:14px 0 18px;color:var(--ink)}
+  .essential .kw{font-size:13px;color:var(--ink-3);line-height:1.5}
+  .essential .kw .chip{display:inline-block;font-size:12px;color:var(--ink-2);background:rgba(21,22,26,.05);padding:4px 10px;border-radius:999px;margin:0 4px 6px 0}
+  .essential .body p{font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.6;color:var(--ink-2);margin:0 0 18px;letter-spacing:-0.003em}
+  .essential .body p strong{color:var(--ink);font-weight:500}
+  .essential .body p:last-child{margin-bottom:0}
+
+  /* alternating subtle backgrounds for rhythm */
+  .essential.even{background:linear-gradient(0deg,transparent,transparent)}
+  .essential .body .pull{font-family:'Manrope',sans-serif;font-style:normal;font-weight:600;font-size:24px;line-height:1.25;letter-spacing:-0.01em;color:var(--ink);border-left:2px solid var(--clay);padding:2px 0 2px 20px;margin:24px 0}
+
+  /* BOOK — calm */
+  .book{display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:start;padding:64px 0 32px;border-top:1px solid var(--line-2);margin-top:24px}
+  .book .cover-wrap{aspect-ratio:3/4;background:linear-gradient(180deg,#f3edd8 0%, #cfd8e8 60%, #5a7fb1 100%);border-radius:4px;box-shadow:0 18px 36px rgba(0,0,0,.14), 0 4px 12px rgba(0,0,0,.08);position:relative;overflow:hidden}
+  .book .cover-wrap .top{position:absolute;left:14px;right:14px;top:14px;font-family:'Manrope',sans-serif;font-weight:800;font-size:16px;line-height:1.05;color:#1b1b22;letter-spacing:-0.01em}
+  .book .cover-wrap .top small{display:block;font-weight:500;font-size:9px;letter-spacing:.12em;color:#1b1b22;opacity:.8;margin-top:6px}
+  .book .cover-wrap .blob{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:96px;height:96px;border-radius:50%;background:#E16A2C;color:#fff;display:grid;place-items:center;text-align:center;font-family:'Manrope',sans-serif;font-weight:700;font-size:8.5px;line-height:1.25;padding:14px}
+  .book .cover-wrap .stripe{position:absolute;left:0;right:0;bottom:0;height:38%;background:radial-gradient(ellipse at 30% 20%, #b06b3e 0%, transparent 50%), linear-gradient(180deg, #5a7fb1 0%, #1f3a5f 100%)}
+  .book .body .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .book .body h2{font-family:'Manrope',sans-serif;font-weight:700;font-size:32px;letter-spacing:-0.02em;line-height:1.1;margin:14px 0 6px}
+  .book .body .author{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:15px;color:var(--ink-3);margin-bottom:22px}
+  .book .body p{font-family:'Source Serif 4',Georgia,serif;font-size:17px;line-height:1.6;color:var(--ink-2);margin:0 0 18px;max-width:620px}
+
+  /* FOOTER */
+  footer{padding:36px 0 40px;border-top:1px solid var(--line);margin-top:48px}
+  footer .row{display:flex;justify-content:space-between;align-items:center;gap:32px;font-size:13px;color:var(--ink-2)}
+  footer nav{display:flex;gap:36px}
+  footer .copy{color:var(--muted)}
+
+  svg{display:block}
+
+  @media (max-width: 1080px){
+    .hero-grid{grid-template-columns:1fr;gap:32px}
+    .hero h1{font-size:60px}
+    .about{grid-template-columns:1fr;gap:24px}
+    .ftc{grid-template-columns:1fr;gap:8px}
+    .ftc .arrow{transform:rotate(90deg);margin:4px 0}
+    .who-grid{grid-template-columns:repeat(2,1fr)}
+    .nine-head{grid-template-columns:1fr;gap:24px}
+    .essential{grid-template-columns:1fr;gap:18px;padding:36px 0}
+    .essential .anchor{position:static}
+    .book{grid-template-columns:160px 1fr;gap:24px}
+    .sec-title{font-size:36px}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="container top-row">
+    <div class="brand">
+      <span class="leaf" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 19c4-1 8-4 11-9 3 4 6 6 7 6-1 4-4 7-9 7-4 0-7-2-9-4Z" fill="#3a6e3e"/><path d="M5 18c3-3 6-7 8-12" stroke="#274d2c" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </span>
+      Сообщество практиков АБМ<sup style="font-size:9px">®</sup>
+    </div>
+    <nav class="menu">
+      <a href="about.html" class="active">О методе</a>
+      <a href="index.html#search">Практики</a>
+      <a href="index.html#book">Дети с неограниченными возможностями</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="crumbs">
+      <a href="index.html">Главная</a><span class="sep">/</span><span>О методе</span>
+    </div>
+
+    <div class="hero-grid">
+      <div>
+        <span class="pill"><span class="dot"></span>NeuroMovement<sup style="font-size:9px">®</sup></span>
+        <h1 class="display">О&nbsp;методе</h1>
+        <p class="sub">Anat Baniel Method NeuroMovement&nbsp;— целостный подход к&nbsp;тому, как человек двигается, чувствует и&nbsp;действует.</p>
+        <p class="quote">Движение&nbsp;— это язык мозга.<cite>— Anat Baniel</cite></p>
+      </div>
+      <div class="hero-photo" aria-label="Анат Баниэль">
+        <img src="../images/anat-baniel.jpg" alt="Анат Баниэль" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- О МЕТОДЕ — editorial -->
+<section class="block">
+  <div class="container">
+    <div class="about">
+      <aside class="side">
+        <span class="label">Раздел</span>
+        <h2>О&nbsp;методе</h2>
+        <div class="meta">
+          <div><strong style="color:var(--ink);font-weight:600">Автор</strong><br/>Anat Baniel, ученица&nbsp;и&nbsp;ассистентка Моше Фельденкрайза</div>
+          <div><strong style="color:var(--ink);font-weight:600">Основа</strong><br/>Нейропластичность<br/>и&nbsp;Nine&nbsp;Essentials</div>
+          <div><strong style="color:var(--ink);font-weight:600">Применение</strong><br/>Дети с&nbsp;особыми потребностями, взрослые с&nbsp;болью и&nbsp;травмами, performance</div>
+        </div>
+      </aside>
+      <div class="body">
+        <p style="letter-spacing: -1px">В&nbsp;основе метода&nbsp;— простая идея: движение&nbsp;это язык, на&nbsp;котором мозг говорит сам с&nbsp;собой. Через движение он&nbsp;получает информацию, нужную ему, чтобы расти и&nbsp;организовывать себя. И&nbsp;уже в&nbsp;свою очередь именно мозг организует всё&nbsp;— движение тела, мышление, чувства, действие.</p>
+        <p>Под движением здесь понимается не&nbsp;только движение скелета и&nbsp;мышц в&nbsp;пространстве, но&nbsp;и&nbsp;движение мысли, эмоций и&nbsp;чувств. Мозг описывается как самоорганизующаяся информационная система, в&nbsp;которой ум и&nbsp;тело всегда интегрированы; он&nbsp;формируется и&nbsp;обучается целостно&nbsp;— через опыт всех аспектов движения.</p>
+        <p>Дети рождены быть удивительными машинами обучения: их&nbsp;мозг растёт и&nbsp;формируется с&nbsp;поразительной скоростью. Современная наука о&nbsp;пластичности показывает, что при правильных условиях и&nbsp;взрослый мозг может перестраивать себя&nbsp;— вплоть до&nbsp;рождения новых клеток, что ещё недавно считалось невозможным.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FROM FIXING TO CONNECTING — softer -->
+<section class="block">
+  <div class="container narrow">
+    <div class="sec-eyebrow"><span class="eyebrow">Сдвиг подхода</span><span class="ln"></span></div>
+    <h2 class="sec-title">От&nbsp;исправления&nbsp;— к&nbsp;соединению</h2>
+    <p style="font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.6;color:var(--ink-2);max-width:720px;margin:18px 0 32px">Когда мы&nbsp;узнаём, что с&nbsp;ребёнком что-то не&nbsp;так, естественно сосредоточиться на&nbsp;ограничении и&nbsp;попытаться его «исправить». Это иногда правильный подход&nbsp;— но&nbsp;у&nbsp;него есть большие ограничения, и&nbsp;он&nbsp;может быть контрпродуктивным.</p>
+
+    <div class="ftc" style="width: 988px">
+      <div class="col a" style="width: 454px">
+        <span class="label">Привычное</span>
+        <h3>Исправление</h3>
+        <p>Дрилл, повторение, постоянные подсказки. Иногда это действительно немного помогает, но&nbsp;часто <strong>лишает мозг того, что ему нужно для обучения</strong>&nbsp;— новой информации, и&nbsp;в&nbsp;большом количестве.</p>
+      </div>
+      <div class="arrow" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="col b" style="margin: 0px 0px 0px 27.90625px; width: 442px">
+        <span class="label">Метод ABM</span>
+        <h3>Соединение</h3>
+        <p>Помочь мозгу <strong>различать</strong> и&nbsp;спонтанно находить, как выйти за&nbsp;пределы своих ограничений. Какой&nbsp;бы ни&nbsp;была наша экспертиза, мы&nbsp;на&nbsp;100% зависим от&nbsp;мозга ребёнка&nbsp;— именно он&nbsp;совершает изменения.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IS IT FOR -->
+<section class="block">
+  <div class="container">
+    <div class="who-head">
+      <div>
+        <div class="sec-eyebrow"><span class="eyebrow">Кому подходит метод</span><span class="ln"></span></div>
+        <h2 class="sec-title">Взрослым и&nbsp;детям</h2>
+      </div>
+      <div class="who-tabs" role="tablist" aria-label="Аудитория">
+        <button class="on" data-tab="kids">Детям</button>
+        <button data-tab="adults">Взрослым</button>
+      </div>
+    </div>
+
+    <div class="who-grid" id="grid-kids">
+      <div class="who-card"><span class="num">01</span><h4>Травмы и&nbsp;повреждения мозга</h4><p>ДЦП, детский инсульт, ЧМТ. Метод помогает мозгу формировать новые паттерны движения и&nbsp;мышления вместо механической тренировки.</p></div>
+      <div class="who-card"><span class="num">02</span><h4>РАС и&nbsp;СДВГ</h4><p>Улучшаются речь, внимание, координация и&nbsp;социальное функционирование. Ребёнок начинает лучше взаимодействовать с&nbsp;окружающими.</p></div>
+      <div class="who-card"><span class="num">03</span><h4>Генетические нарушения</h4><p>Синдром Дауна, Ангельмана, Fragile&nbsp;X, CDKL5. Мозг формирует новые связи за&nbsp;рамками предполагаемых ограничений.</p></div>
+      <div class="who-card"><span class="num">04</span><h4>Структурные и&nbsp;родовые нарушения</h4><p>Плечевое сплетение, кривошея, сколиоз, врождённые пороки. Фокус&nbsp;— на&nbsp;карте тела в&nbsp;мозге, а&nbsp;не&nbsp;на&nbsp;механике.</p></div>
+      <div class="who-card"><span class="num">05</span><h4>Недиагностированные задержки</h4><p>Нет формального диагноза, но&nbsp;ребёнок отстаёт в&nbsp;моторном, речевом или когнитивном развитии. Метод делает его более эффективным учеником.</p></div>
+      <div class="who-card"><span class="num">06</span><h4>Типично развивающиеся дети</h4><p>Nine&nbsp;Essentials создают оптимальные условия, помогая формировать здоровые паттерны движения и&nbsp;мышления с&nbsp;нуля.</p></div>
+    </div>
+
+    <div class="who-grid" id="grid-adults" style="display:none">
+      <div class="who-card"><span class="num">01</span><h4>Хроническая боль</h4><p>Спина, шея, плечи, суставы, артрит, туннельный синдром запястья. Мозг формирует новые паттерны, свободные от&nbsp;боли.</p></div>
+      <div class="who-card"><span class="num">02</span><h4>Восстановление после инсульта</h4><p>Вместо механического повторения утраченных навыков&nbsp;— новая сенсорная информация и&nbsp;альтернативные двигательные решения.</p></div>
+      <div class="who-card"><span class="num">03</span><h4>Возрастные ограничения</h4><p>Ухудшение баланса, подвижности, когнитивных функций. Метод использует нейропластичность, чтобы обращать возрастные изменения.</p></div>
+      <div class="who-card"><span class="num">04</span><h4>Высокая результативность</h4><p>Спортсмены, музыканты, танцоры. Преодоление боли и&nbsp;травм, выход на&nbsp;новый уровень физической и&nbsp;творческой производительности.</p></div>
+      <div class="who-card"><span class="num">05</span><h4>Общий фитнес и&nbsp;благополучие</h4><p>Улучшение осанки, дыхания, гибкости и&nbsp;координации&nbsp;— особенно для тех, кто много работает за&nbsp;столом.</p></div>
+      <div class="who-card"><span class="num">06</span><h4>Здоровое старение</h4><p>Поддержка ясности мышления и&nbsp;уверенности в&nbsp;теле&nbsp;— через мягкое движение и&nbsp;внимательность.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- NINE ESSENTIALS — editorial long-form -->
+<section class="block">
+  <div class="container">
+    <div class="nine-head">
+      <div>
+        <div class="sec-eyebrow"><span class="eyebrow">Девять принципов · Nine Essentials</span><span class="ln"></span></div>
+        <h2 class="sec-title">Условия,<br/>при которых мозг<br/>хорошо делает свою&nbsp;работу</h2>
+      </div>
+      <p>Каждый Essential описывает одно из&nbsp;условий, при котором мозг создаёт новые соединения, преодолевает боль и&nbsp;ограничение, выходит на&nbsp;новые уровни физической, эмоциональной и&nbsp;когнитивной результативности.</p>
+    </div>
+
+    <!-- 01 -->
+    <article class="essential">
+      <header class="anchor">
+        <div class="num">Essential · 01</div>
+        <h3 class="ttl">Движение<br/>с&nbsp;вниманием</h3>
+        <div class="kw">
+          <span class="chip">внимание</span>
+          <span class="chip">обычные действия</span>
+          <span class="chip">сенсорная обратная связь</span>
+        </div>
+      </header>
+      <div class="body">
+        <p>Движение&nbsp;— это жизнь. Оно помогает мозгу расти и&nbsp;формироваться, и&nbsp;именно через движение мозг сам себя организует. А&nbsp;затем мозг организует всё остальное: движение тела ребёнка, его мышление, чувства и&nbsp;эмоции.</p>
+        <p>Но&nbsp;одного движения недостаточно. Автоматическое движение&nbsp;— то, что мы&nbsp;делаем без внимания,&nbsp;— лишь углубляет уже существующие паттерны. Исследования показывают: оно создаёт мало новых соединений в&nbsp;мозге или не&nbsp;создаёт их&nbsp;вовсе.</p>
+        <p class="pull">Когда внимание направляется на&nbsp;то, что чувствуется во&nbsp;время движения,&nbsp;— мозг сразу начинает строить миллиарды новых неврологических соединений.</p>
+        <p>Задача взрослого&nbsp;— <strong>не</strong> добиться того, чтобы ребёнок обращал внимание на&nbsp;него, а&nbsp;помочь ребёнку направить внимание на&nbsp;самого себя&nbsp;— на&nbsp;то, что он&nbsp;чувствует, когда движется. Такое внимание можно вплетать в&nbsp;обычные действия: кормление, смену подгузника, купание, игру.</p>
+      </div>
+    </article>
+
+    <!-- 02 -->
+    <article class="essential">
+      <header class="anchor">
+        <div class="num">Essential · 02</div>
+        <h3 class="ttl">Медленность</h3>
+        <div class="kw">
+          <span class="chip">замедление</span>
+          <span class="chip">игра в&nbsp;медленное</span>
+          <span class="chip">безопасность</span>
+        </div>
+      </header>
+      <div class="body">
+        <p>Двигаясь быстро, ребёнок может делать только то, что уже знает. У&nbsp;мозга нет выбора, кроме как перейти в&nbsp;автоматический режим и&nbsp;использовать самые глубоко укоренённые паттерны.</p>
+        <p>Чтобы учиться новым навыкам и&nbsp;преодолевать ограничения, первое, что нужно сделать,&nbsp;— <strong>сильно замедлиться</strong>. Медленное по-настоящему привлекает внимание мозга и&nbsp;стимулирует формирование богатых новых нейронных паттернов.</p>
+        <p>Медленное для ребёнка начинается со&nbsp;взрослого: вы&nbsp;становитесь моделью медленного, прокладывая путь, по&nbsp;которому сможет последовать его мозг. Это навык, который вы&nbsp;и&nbsp;ребёнок развиваете вместе&nbsp;— превращая в&nbsp;«игру в&nbsp;медленное» одевание, сборку пазла, игру с&nbsp;мячом, решение задачи.</p>
+      </div>
+    </article>
+
+    <!-- 03 -->
+    <article class="essential">
+      <header class="anchor">
+        <div class="num">Essential · 03</div>
+        <h3 class="ttl">Вариативность</h3>
+        <div class="kw">
+          <span class="chip">различия</span>
+          <span class="chip">«сделай неправильно»</span>
+          <span class="chip">новый порядок</span>
+        </div>
+      </header>
+      <div class="body">
+        <p>Вариативность повсюду&nbsp;— и&nbsp;это больше, чем «изюминка жизни». Это необходимость для оптимального здоровья. Она даёт мозгу ребёнка богатство информации, нужное, чтобы создавать новые возможности в&nbsp;движениях, чувствах, мыслях и&nbsp;действиях.</p>
+        <p class="pull">Когда мы&nbsp;варьируем&nbsp;— мы&nbsp;создаём различия. А&nbsp;мозг процветает на&nbsp;различиях.</p>
+        <p>Один из&nbsp;самых простых способов встроить этот принцип в&nbsp;жизнь&nbsp;— выполнять обычные действия по-новому. Менять порядок, в&nbsp;котором ребёнок надевает одежду; скорость, с&nbsp;которой движется игрушка; маршрут до&nbsp;школы; расписание дня. Прекрасный приём&nbsp;— попросить ребёнка сделать что-то «неправильно», а&nbsp;потом ещё одним «неправильным» способом.</p>
+      </div>
+    </article>
+
+    <!-- 04 -->
+    <article class="essential">
+      <header class="anchor">
+        <div class="num">Essential · 04</div>
+        <h3 class="ttl">Субтильность</h3>
+        <div class="kw">
+          <span class="chip">тонкие различия</span>
+          <span class="chip">меньше усилия</span>
+          <span class="chip">мягкость</span>
+        </div>
+      </header>
+      <div class="body">
+        <p>Словарное определение субтильности&nbsp;— «способность распознавать и&nbsp;создавать очень тонкие различия». Именно эта способность мозга воспринимать тонкие различия и&nbsp;лежит в&nbsp;основе его умения создавать новую информацию&nbsp;— для более точного действия и&nbsp;для выхода за&nbsp;пределы ограничений.</p>
+        <p>И&nbsp;это верно одинаково для тела, интеллекта и&nbsp;эмоциональной жизни. Чем больше мягкости и&nbsp;субтильности вы&nbsp;привносите в&nbsp;любое действие&nbsp;— своё или ребёнка,&nbsp;— тем точнее его мозг будет различать.</p>
+        <p>Большинству людей легче начать с&nbsp;уменьшения избыточного усилия в&nbsp;теле: за&nbsp;рулём, при мытье посуды, при одевании. Дальше&nbsp;— переносить этот навык на&nbsp;взаимодействие: меняя подгузник, поднимая, помогая, использовать всё меньше и&nbsp;меньше силы. Субтильность работает и&nbsp;в&nbsp;эмоциональном плане&nbsp;— мягкий тон голоса, лёгкость подхода, снижение интенсивности ожиданий.</p>
+      </div>
+    </article>
+
+    <!-- 05 -->
+    <article class="essential">
+      <header class="anchor">
+        <div class="num">Essential · 05</div>
+        <h3 class="ttl">Энтузиазм</h3>
+        <div class="kw">
+          <span class="chip">внутренняя радость</span>
+          <span class="chip">мелкие сдвиги</span>
+          <span class="chip">не&nbsp;комплименты</span>
+        </div>
+      </header>
+      <div class="body">
+        <p>Энтузиазм сообщает мозгу, что для вас важно,&nbsp;— усиливает это, выделяет и&nbsp;наполняет энергией, чтобы оно росло дальше. Это мощная энергия, которая поднимает и&nbsp;вдохновляет вас и&nbsp;других. Энтузиазм самогенерируем: это навык, который можно развить.</p>
+        <p>Энтузиазм&nbsp;— это <strong>не</strong> про комплименты («Great job!») и&nbsp;не&nbsp;про аплодисменты. Напротив, это про умение создавать и&nbsp;усиливать собственное внутреннее переживание глубокой радости и&nbsp;признательности к&nbsp;самым крошечным изменениям и&nbsp;улучшениям ребёнка.</p>
+        <p>Легко испытывать энтузиазм при очевидном прорыве&nbsp;— первом слове или первом шаге; гораздо важнее научиться замечать маленькие изменения. На&nbsp;пути к&nbsp;каждой заметной стадии каждый ребёнок проходит через множество таких крошечных, на&nbsp;первый взгляд неважных, сдвигов&nbsp;— и&nbsp;именно они складываются в&nbsp;большое.</p>
+      </div>
+    </article>
+
+    <!-- 06 -->
+    <article class="essential">
+      <header class="anchor">
+        <div class="num">Essential · 06</div>
+        <h3 class="ttl">Гибкие цели</h3>
+        <div class="kw">
+          <span class="chip">ясное намерение</span>
+          <span class="chip">лёгкое касание</span>
+          <span class="chip">процесс &gt; цель</span>
+        </div>
+      </header>
+      <div class="body">
+        <p>Ребёнок может достигать большего&nbsp;— и&nbsp;с&nbsp;меньшим страданием,&nbsp;— если вы&nbsp;держите цели свободно и&nbsp;остаётесь открыты возможностям, которые иначе были&nbsp;бы недоступны. Свободно&nbsp;— значит с&nbsp;ясным намерением, но&nbsp;лёгким касанием и&nbsp;большой гибкостью.</p>
+        <p class="pull">Иметь гибкие цели&nbsp;— значит всегда двигаться по&nbsp;краям текущей способности ребёнка, там, где переживание успеха и&nbsp;изменения наиболее доступно.</p>
+        <p>Когда ребёнок получает результат, который кажется ему приятным и&nbsp;интересным, мозг охотнее усиливает паттерны, которые к&nbsp;этому привели. Если&nbsp;же требовать того, что слишком далеко от&nbsp;текущих возможностей, мозг просто не&nbsp;сможет это «вычислить»&nbsp;— обучение блокируется. Поэтому фокус&nbsp;— на&nbsp;процессе, а&nbsp;не&nbsp;на&nbsp;цели; на&nbsp;интересе к&nbsp;тому, что ребёнок сделает дальше; на&nbsp;принятии ошибок как сокровищницы информации.</p>
+      </div>
+    </article>
+
+    <!-- 07 -->
+    <article class="essential">
+      <header class="anchor">
+        <div class="num">Essential · 07</div>
+        <h3 class="ttl">Переключатель обучения</h3>
+        <div class="kw">
+          <span class="chip">«здесь и&nbsp;сейчас»</span>
+          <span class="chip">безопасность</span>
+          <span class="chip">контакт</span>
+        </div>
+      </header>
+      <div class="body">
+        <p>Мозг либо находится в&nbsp;режиме обучения&nbsp;— переключатель включён,&nbsp;— либо нет. У&nbsp;здоровых маленьких детей он&nbsp;включён на&nbsp;полную: глаза яркие, движения лёгкие, и&nbsp;они полны энергии. Повторение, дрилл и&nbsp;ежедневный стресс этот переключатель обычно выключают.</p>
+        <p>Сосредоточиться узко на&nbsp;проблемной зоне ребёнка&nbsp;— нормальная и&nbsp;понятная реакция, но&nbsp;в&nbsp;этот момент мы&nbsp;перестаём видеть всего ребёнка, и&nbsp;наш собственный переключатель тоже выключается. Чтобы помочь ребёнку включить его, сначала нужно <strong>включить свой</strong>.</p>
+        <p>Когда вы&nbsp;возвращаетесь в&nbsp;«здесь и&nbsp;сейчас»&nbsp;— переключатель уже включён. Безопасность, контакт с&nbsp;родителем, игра, радость, комфорт, принятие и&nbsp;любовь помогают его включать. Признаки включённого режима у&nbsp;ребёнка видны напрямую: ярче глаза, больше движения, голоса, любопытства, участия.</p>
+      </div>
+    </article>
+
+    <!-- 08 -->
+    <article class="essential">
+      <header class="anchor">
+        <div class="num">Essential · 08</div>
+        <h3 class="ttl">Воображение и&nbsp;мечты</h3>
+        <div class="kw">
+          <span class="chip">фантазия</span>
+          <span class="chip">мечтание наяву</span>
+          <span class="chip">сторителлинг</span>
+        </div>
+      </header>
+      <div class="body">
+        <p>Воображение можно рассматривать как сокровищницу будущего ребёнка. Связанные с&nbsp;ним творческие силы у&nbsp;здоровых детей чрезвычайно живы&nbsp;— и&nbsp;они существенны, когда ребёнок тянется в&nbsp;мир, развивает новые навыки и&nbsp;открывает новые возможности.</p>
+        <p>У&nbsp;ребёнка с&nbsp;особыми потребностями эта спонтанная склонность воображать и&nbsp;мечтать может быть полностью или частично остановлена&nbsp;— из-за трудностей и&nbsp;иногда боли, которые забирают всё его внимание. Поэтому особенно важно пробуждать его способность к&nbsp;воображению.</p>
+        <p>Близкий родственник воображения&nbsp;— мечтание наяву. Многих из&nbsp;нас учили, что это пустая трата времени, но&nbsp;исследования говорят прямо противоположное: <strong>мозг ребёнка оживает, когда он&nbsp;мечтает наяву</strong>. Игра, совместное воображение, перерыв на&nbsp;мечтание, сторителлинг, добавление в&nbsp;фантазию движения, музыки и&nbsp;танца&nbsp;— там, где у&nbsp;ребёнка есть ограничения, их&nbsp;можно обходить через воображение.</p>
+      </div>
+    </article>
+
+    <!-- 09 -->
+    <article class="essential">
+      <header class="anchor">
+        <div class="num">Essential · 09</div>
+        <h3 class="ttl">Осознавание</h3>
+        <div class="kw">
+          <span class="chip">awaring</span>
+          <span class="chip">для кого я&nbsp;это делаю?</span>
+          <span class="chip">пауза</span>
+        </div>
+      </header>
+      <div class="body">
+        <p>Awareness&nbsp;— это не&nbsp;вещь, не&nbsp;состояние и&nbsp;не&nbsp;то, чем мы&nbsp;обладаем. Awareness, как и&nbsp;движение,&nbsp;— это то, что мы&nbsp;<strong>делаем</strong>. Точно так&nbsp;же, как можно сказать «я&nbsp;иду» или «я&nbsp;готовлю», Анат Баниэль предлагает научиться говорить «я&nbsp;aware-ю» прямо сейчас.</p>
+        <p class="pull">Awaring позволяет мозгу сделать квантовый скачок&nbsp;— от&nbsp;того места, где он&nbsp;сейчас, к&nbsp;следующему уровню способностей.</p>
+        <p>Awaring начинается со&nbsp;взрослого. Прежде чем что-то делать с&nbsp;ребёнком, остановитесь и&nbsp;осознайте, что вы&nbsp;чувствуете: растерянность, контроль, спокойствие, страх, перегрузку, усталость, надежду, любовь. И&nbsp;спросите себя: «Для кого я&nbsp;собираюсь это сделать? Для ребёнка? Для себя? Для нас обоих?» Очень часто родители обнаруживают, что действие, якобы совершаемое ради ребёнка, на&nbsp;самом деле снимает их&nbsp;собственную тревогу или идёт на&nbsp;автопилоте.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- BOOK — calm -->
+<section class="block">
+  <div class="container">
+    <div class="book">
+      <div>
+        <div class="cover-wrap" aria-label="Обложка книги">
+          <div class="top">Дети<br/>с&nbsp;неограниченными<br/>возможностями<small>Анат Баниэль</small></div>
+          <div class="blob">Метод пробуждения мозга для улучшения жизни особых детей</div>
+          <div class="stripe"></div>
+        </div>
+      </div>
+      <div class="body">
+        <span class="label">К&nbsp;дальнейшему чтению</span>
+        <h2>Дети с&nbsp;неограниченными возможностями</h2>
+        <div class="author">Анат Баниэль · Kids Beyond Limits</div>
+        <p>Anat Baniel Method NeuroMovement подробно описан в&nbsp;книге Анат Баниэль <em>Kids Beyond Limits</em> (в&nbsp;русской традиции&nbsp;— «Дети с&nbsp;неограниченными возможностями»). В&nbsp;официальных материалах метода прямо отмечается, что руководство по&nbsp;9&nbsp;Essentials для родителей содержит фрагменты из&nbsp;этой книги&nbsp;— а&nbsp;сама книга даёт гораздо больше советов и&nbsp;примеров того, как использовать их&nbsp;вместе с&nbsp;ребёнком.</p>
+        <p>Центральный сдвиг, к&nbsp;которому приглашает книга,&nbsp;— переход «от&nbsp;исправления к&nbsp;соединению»: от&nbsp;попытки заставить ребёнка делать то, что он&nbsp;пока не&nbsp;может, к&nbsp;поиску способов помочь его мозгу различать и&nbsp;спонтанно находить, как выйти за&nbsp;пределы ограничений. Первый шаг&nbsp;— перестать пытаться «исправить» ребёнка: если&nbsp;бы он&nbsp;мог, он&nbsp;бы&nbsp;делал.</p>
+        <p>Ценность книги&nbsp;— в&nbsp;том, что она соединяет нейропластичность, практику повседневного взаимодействия и&nbsp;Nine&nbsp;Essentials в&nbsp;единую рабочую рамку для семьи.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container row">
+    <div class="brand">
+      <span class="leaf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 19c4-1 8-4 11-9 3 4 6 6 7 6-1 4-4 7-9 7-4 0-7-2-9-4Z" fill="#3a6e3e"/></svg></span>
+      Сообщество практиков АБМ<sup style="font-size:9px">®</sup>
+    </div>
+    <nav>
+      <a href="about.html">О методе</a>
+      <a href="index.html#search">Практики</a>
+      <a href="index.html#book">Дети с&nbsp;неограниченными возможностями</a>
+    </nav>
+    <div class="copy">© 2026 ABM Сообщество</div>
+  </div>
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.who-tabs button');
+  tabs.forEach(b => b.addEventListener('click', () => {
+    tabs.forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    const t = b.dataset.tab;
+    document.getElementById('grid-kids').style.display = t === 'kids' ? '' : 'none';
+    document.getElementById('grid-adults').style.display = t === 'adults' ? '' : 'none';
+  }));
+</script>
+</body>
+</html>
