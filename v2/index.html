@@ -649,7 +649,8 @@ const PRACTS = {"mitkovskaya-anastasiya": {"name": "Анастасия Мить�
     const q = (query||'').trim().toLowerCase();
     cards.forEach(card => {
       const cityText = (card.querySelector('.city')?.textContent || '').toLowerCase();
-      const show = !q || cityText.includes(q);
+      const awayText = (card.querySelector('.away')?.textContent || '').toLowerCase();
+      const show = !q || cityText.includes(q) || awayText.includes(q);
       card.style.display = show ? '' : 'none';
     });
   }
