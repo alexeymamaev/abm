@@ -637,6 +637,46 @@ const PRACTS = {"mitkovskaya-anastasiya": {"name": "Анастасия Мить�
   modal.querySelector('.m-close').addEventListener('click', close);
   document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
 })();
+
+// City filter & search
+(function(){
+  const chips = Array.from(document.querySelectorAll('.city-filters .chip-btn'));
+  const cards = Array.from(document.querySelectorAll('#search .pcard'));
+  const searchInput = document.querySelector('.search-bar input');
+  const searchBtn = document.querySelector('.search-bar > .btn');
+
+  function applyFilter(query){
+    const q = (query||'').trim().toLowerCase();
+    cards.forEach(card => {
+      const cityText = (card.querySelector('.city')?.textContent || '').toLowerCase();
+      const show = !q || cityText.includes(q);
+      card.style.display = show ? '' : 'none';
+    });
+  }
+
+  chips.forEach(chip => {
+    if(chip.querySelector('.lbl')) return; // "Популярные:" — это лейбл, не клик
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('on'));
+      chip.classList.add('on');
+      if(searchInput) searchInput.value = '';
+      const label = chip.textContent.trim();
+      applyFilter(label === 'Все города' ? '' : label);
+    });
+  });
+
+  function runSearch(){
+    const v = searchInput ? searchInput.value.trim() : '';
+    chips.forEach(c => c.classList.remove('on'));
+    if(!v && chips[0]) chips[0].classList.add('on');
+    applyFilter(v);
+  }
+  if(searchInput){
+    searchInput.addEventListener('input', runSearch);
+    searchInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); runSearch(); }});
+  }
+  if(searchBtn) searchBtn.addEventListener('click', e => { e.preventDefault(); runSearch(); });
+})();
 </script>
 
 </body>
