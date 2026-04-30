@@ -584,7 +584,8 @@ const PRACTS = {"mitkovskaya-anastasiya": {"name": "Анастасия Мить�
       clone.querySelectorAll('svg').forEach(s=>s.remove());
       return clone.textContent.trim();
     })();
-    const cardAway = card.querySelector('.away')?.textContent?.trim() || '';
+    const awayCardEl = card.querySelector('.away');
+    const cardAway = (awayCardEl?.dataset.original || awayCardEl?.textContent || '').trim();
 
     nameEl.textContent = p ? p.name : cardName;
     cityEl.textContent = cardCity || (p ? p.city : '');
