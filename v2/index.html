@@ -662,7 +662,8 @@ const PRACTS = {"mitkovskaya-anastasiya": {"name": "Анастасия Мить�
     const q = (query||'').trim().toLowerCase();
     cards.forEach(card => {
       const cityText = (card.querySelector('.city')?.textContent || '').toLowerCase();
-      const awayText = (card.querySelector('.away')?.textContent || '').toLowerCase();
+      const awayEl = card.querySelector('.away');
+      const awayText = (awayEl?.dataset.original || awayEl?.textContent || '').toLowerCase();
       const show = !q || cityText.includes(q) || awayText.includes(q);
       card.style.display = show ? '' : 'none';
     });
@@ -690,6 +691,37 @@ const PRACTS = {"mitkovskaya-anastasiya": {"name": "Анастасия Мить�
     searchInput.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); runSearch(); }});
   }
   if(searchBtn) searchBtn.addEventListener('click', e => { e.preventDefault(); runSearch(); });
+})();
+
+// Mobile: показываем количество выездных городов вместо списка
+(function(){
+  function plural(n){
+    const m100 = n % 100;
+    if(m100 >= 11 && m100 <= 14) return 'городов';
+    const m10 = n % 10;
+    if(m10 === 1) return 'город';
+    if(m10 >= 2 && m10 <= 4) return 'города';
+    return 'городов';
+  }
+  const aways = Array.from(document.querySelectorAll('.pcard .away'));
+  aways.forEach(el => {
+    const original = el.textContent.trim();
+    el.dataset.original = original;
+    const m = original.match(/^Выезд:\s*(.+)$/i);
+    if(m){
+      const count = m[1].split(',').map(s => s.trim()).filter(Boolean).length;
+      if(count > 1) el.dataset.short = 'Выезд: ' + count + ' ' + plural(count);
+    }
+  });
+  const mq = matchMedia('(max-width: 720px)');
+  function update(){
+    aways.forEach(el => {
+      el.textContent = (mq.matches && el.dataset.short) ? el.dataset.short : el.dataset.original;
+    });
+  }
+  if(mq.addEventListener) mq.addEventListener('change', update);
+  else if(mq.addListener) mq.addListener(update);
+  update();
 })();
 </script>
 
