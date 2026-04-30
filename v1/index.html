@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сообщество практиков ABM NeuroMovement®</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-xl"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"/><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"/><path d="M5 21h14"/></svg>
+      <span class="nav-logo-text">Сообщество практиков АБМ®</span>
+    </a>
+    <div class="nav-right">
+      <a href="#about" class="nav-link">О методе</a>
+      <a href="#search" class="nav-link">Практики</a>
+      <a href="#book" class="nav-link">Дети с неограниченными возможностями</a>
+    </div>
+    <button class="burger" aria-label="Меню" onclick="document.querySelector('.nav').classList.toggle('nav--open')">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile">
+    <a href="#about" class="nav-mobile__link" onclick="document.querySelector('.nav').classList.remove('nav--open')">О методе</a>
+    <a href="#search" class="nav-mobile__link" onclick="document.querySelector('.nav').classList.remove('nav--open')">Практики</a>
+    <a href="#book" class="nav-mobile__link" onclick="document.querySelector('.nav').classList.remove('nav--open')">Дети с неограниченными возможностями</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm hero-badge__icon"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>Сертифицированные практики</span>
+      </div>
+      <h1 class="hero-heading">СООБЩЕСТВО
+ПРАКТИКОВ</h1>
+      <h2 class="hero-heading hero-heading--sub">Anat Baniel Method®
+NeuroMovement®</h2>
+      <p class="hero-subtitle">Метод Anat Baniel Method® NeuroMovement®, разработанный Анат Баниэль, — это новаторский, системный и чрезвычайно эффективный способ взаимодействия с мозгом, который позволяет использовать его природную способность к позитивным, немедленным и глубоким изменениям.</p>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-card__num">25</div>
+          <div class="stat-card__desc">сертифицированных практиков в РФ</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__num">51</div>
+          <div class="stat-card__desc">город в РФ, где проходят интенсивы АБМ</div>
+        </div>
+      </div>
+    </div>
+    <img src="../images/anat-baniel.jpg" alt="Анат Баниэль — основатель метода" class="hero-photo" style="object-position:center top">
+  </section>
+
+  <!-- ===== ABOUT / Кому подходит ===== -->
+  <section class="about" id="about">
+    <div class="about-card">
+      <div class="section-header">
+        <div class="section-header__left">
+          <div class="section-label">КОМУ ПОДХОДИТ ABM</div>
+          <div class="section-sublabel">Взрослые и дети с различными состояниями</div>
+        </div>
+        <a href="#" class="btn-pill btn-pill--action">
+          <span class="btn-pill__label">Подробнее</span>
+          <span class="btn-pill__circle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </span>
+        </a>
+      </div>
+
+      <!-- Adults -->
+      <div class="category-group">
+        <div class="category-label">ВЗРОСЛЫЕ</div>
+        <div class="tags-row">
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg> Хроническая боль</div>
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg> Восстановление после инсульта</div>
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></svg> Возрастные ограничения</div>
+        </div>
+        <div class="tags-row">
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/><path d="M18 9h1.5a1 1 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6 9H4.5a1 1 0 0 1 0-5H6"/></svg> Высокая результативность</div>
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg> Общий фитнес и благополучие</div>
+        </div>
+      </div>
+
+      <!-- Children -->
+      <div class="category-group">
+        <div class="category-label">ДЕТИ</div>
+        <div class="tags-row">
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg> Травмы и повреждения мозга</div>
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg> РАС и СДВГ</div>
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10 16 1.5 1.5"/><path d="m14 8-1.5-1.5"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/><path d="m16.5 10.5 1 1"/><path d="m17 6-2.891-2.891"/><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="m20 9 .891.891"/><path d="M3.109 14.109 4 15"/><path d="m6.5 12.5 1 1"/><path d="m7 18 2.891 2.891"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/></svg> Генетические нарушения</div>
+        </div>
+        <div class="tags-row">
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg> Структурные и родовые нарушения</div>
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg> Недиагностированные задержки</div>
+          <div class="tag"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M15 12h.01"/><path d="M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/><path d="M9 12h.01"/></svg> Типично развивающиеся дети</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SEARCH PRACTITIONERS ===== -->
+  <section class="search" id="search">
+    <div class="search-inner">
+      <div class="section-header">
+        <div class="section-header__left">
+          <div class="section-label">НАЙДИТЕ СПЕЦИАЛИСТА</div>
+          <div class="section-sublabel">Сертифицированные специалисты по городам</div>
+        </div>
+      </div>
+
+      <div class="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-bar__icon icon-lg"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        <input type="text" class="search-bar__input" placeholder="Введите город" value="">
+        <div class="search-bar__btn-wrap">
+          <button class="btn-pill btn-pill--search">
+            <span class="btn-pill__label">Найти</span>
+            <span class="btn-pill__circle">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div class="cities">
+        <span class="city-chip city-chip--active" data-filter="">Все города</span>
+        <span class="cities__divider"></span>
+        <span class="cities__label">Популярные:</span>
+        <span class="city-chip" data-filter="москва">Москва</span>
+        <span class="city-chip" data-filter="санкт-петербург">Санкт-Петербург</span>
+        <span class="city-chip" data-filter="казань">Казань</span>
+        <span class="city-chip" data-filter="новосибирск">Новосибирск</span>
+        <span class="city-chip" data-filter="нижний новгород">Нижний Новгород</span>
+        <span class="city-chip" data-filter="саранск">Саранск</span>
+      </div>
+
+      <div class="banner">
+        <div class="banner__left">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-lg"><path d="M12.75 7.09a3 3 0 0 1 2.16 2.16"/><path d="M17.072 17.072c-1.634 2.17-3.527 3.912-4.471 4.727a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 1.432-4.568"/><path d="m2 2 20 20"/><path d="M8.475 2.818A8 8 0 0 1 20 10c0 1.183-.31 2.377-.81 3.533"/><path d="M9.13 9.13a3 3 0 0 0 3.74 3.74"/></svg>
+          <span class="banner__text">Не нашли свой город? Отправьте запрос — мы поможем найти специалиста.</span>
+        </div>
+        <a href="#" class="btn-pill btn-pill--action">
+          <span class="btn-pill__label">Запрос</span>
+          <span class="btn-pill__circle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </span>
+        </a>
+      </div>
+
+      <div class="pract-grid" id="practGrid">
+
+        <!-- === Москва и МО (А→Я) === -->
+        <div class="pract-card pract-card--no-photo" data-city="москва, краснодар" data-surname="аносова">
+
+          <div class="pract-card__info">
+            <div class="pract-card__name">Яна Аносова</div>
+            <div class="pract-card__city"><strong>Москва</strong></div>
+            <div class="pract-card__travel">Выезд: Краснодар</div>
+          </div>
+        </div>
+
+        <div class="pract-card pract-card--no-photo" data-city="москва, ижевск, казань, оренбург" data-surname="болдырева">
+
+          <div class="pract-card__info">
+            <div class="pract-card__name">Екатерина Болдырева</div>
+            <div class="pract-card__city"><strong>Москва</strong></div>
+            <div class="pract-card__travel">Выезд: Ижевск, Казань, Оренбург</div>
+          </div>
+        </div>
+
+        <div class="pract-card pract-card--no-photo" data-city="москва" data-surname="карлова">
+
+          <div class="pract-card__info">
+            <div class="pract-card__name">Татьяна Карлова</div>
+            <div class="pract-card__city"><strong>Москва</strong></div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="москва, химки, екатеринбург, нижний тагил, тюмень" data-surname="лякина">
+          <img src="../images/practitioner-photos/lyakina-ganna.jpg" alt="Ганна Лякина" class="pract-card__img" style="object-position:center top">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Ганна Лякина</div>
+            <div class="pract-card__city"><strong>Химки</strong></div>
+            <div class="pract-card__travel">Выезд: Екатеринбург, Нижний Тагил, Тюмень</div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="москва, сорочинск" data-surname="полшкова">
+          <img src="../images/practitioner-photos/polshkova-vera.jpg" alt="Вера Полшкова" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Вера Полшкова</div>
+            <div class="pract-card__city"><strong>Москва</strong></div>
+            <div class="pract-card__travel">Выезд: Сорочинск</div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="москва" data-surname="порфирьев">
+          <img src="../images/practitioner-photos/porfiriev-ivan.jpg" alt="Иван Порфирьев" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Иван Порфирьев</div>
+            <div class="pract-card__city"><strong>Москва</strong></div>
+          </div>
+        </div>
+
+        <div class="pract-card pract-card--no-photo" data-city="москва, дедовск, звенигород, истра, красногорск" data-surname="рыбакова">
+
+          <div class="pract-card__info">
+            <div class="pract-card__name">Евгения Рыбакова</div>
+            <div class="pract-card__city"><strong>Москва</strong></div>
+            <div class="pract-card__travel">Выезд: Дедовск, Звенигород, Истра, Красногорск</div>
+          </div>
+        </div>
+
+        <div class="pract-card pract-card--no-photo" data-city="красногорск, брянск" data-surname="стародубцева">
+
+          <div class="pract-card__info">
+            <div class="pract-card__name">Марина Стародубцева</div>
+            <div class="pract-card__city"><strong>Красногорск</strong></div>
+            <div class="pract-card__travel">Выезд: Брянск</div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="москва, пушкино" data-surname="уткина">
+          <img src="../images/practitioner-photos/utkina-anna.webp" alt="Анна Уткина" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Анна Уткина</div>
+            <div class="pract-card__city"><strong>Москва / Пушкино</strong></div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="москва, брянск, волгоград, кемерово, челябинск, череповец" data-surname="шаркова">
+          <img src="../images/practitioner-photos/sharkova-natalya.jpg" alt="Наталья Шаркова" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Наталья Шаркова</div>
+            <div class="pract-card__city"><strong>Москва</strong></div>
+            <div class="pract-card__travel">Выезд: Брянск, Волгоград, Кемерово, Челябинск, Череповец</div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="москва, подольск" data-surname="янушкевич">
+          <img src="../images/practitioner-photos/yanushkevich-rimma.jpg" alt="Римма Янушкевич" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Римма Янушкевич</div>
+            <div class="pract-card__city"><strong>Подольск</strong></div>
+          </div>
+        </div>
+
+        <!-- === Санкт-Петербург (А→Я) === -->
+        <div class="pract-card" data-city="санкт-петербург, владивосток, краснодар, ростов-на-дону, сочи" data-surname="бугаева">
+          <img src="../images/practitioner-photos/bugaeva-valeriya.jpg" alt="Валерия Бугаева" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Валерия Бугаева</div>
+            <div class="pract-card__city"><strong>Санкт-Петербург</strong></div>
+            <div class="pract-card__travel">Выезд: Владивосток, Краснодар, Ростов-на-Дону, Сочи</div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="санкт-петербург, нижний новгород, псков, сочи" data-surname="заяц">
+          <img src="../images/practitioner-photos/zayats-tatyana.jpg" alt="Татьяна Заяц" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Татьяна Заяц</div>
+            <div class="pract-card__city"><strong>Санкт-Петербург</strong></div>
+            <div class="pract-card__travel">Выезд: Нижний Новгород, Псков, Сочи</div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="санкт-петербург, благовещенск, владивосток, красноярск, лесосибирск, находка, рязань, саранск, уссурийск" data-surname="козицкий">
+          <img src="../images/practitioner-photos/kozitsky-nikolay.jpg" alt="Николай Козицкий" class="pract-card__img" style="object-position:center 43%">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Николай Козицкий</div>
+            <div class="pract-card__city"><strong>Санкт-Петербург</strong></div>
+            <div class="pract-card__travel">Выезд: Благовещенск, Владивосток, Красноярск, Лесосибирск, Находка, Рязань, Саранск, Уссурийск</div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="санкт-петербург, казань, нефтеюганск, нижний новгород, новосибирск, новый уренгой, омск, псков, саранск, саратов, чебоксары" data-surname="мелкумов">
+          <img src="../images/practitioner-photos/melkumov-grigory.webp" alt="Григорий Мелкумов" class="pract-card__img" style="object-position:center top">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Григорий Мелкумов</div>
+            <div class="pract-card__city"><strong>Санкт-Петербург</strong></div>
+            <div class="pract-card__travel">Выезд: Казань, Нижний Новгород, Новосибирск, Новый Уренгой, Нефтеюганск, Омск, Псков, Саранск, Саратов, Чебоксары</div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="санкт-петербург, казань, симферополь" data-surname="прокопьева">
+          <img src="../images/practitioner-photos/prokopyeva-yuliya.jpg" alt="Юлия Прокопьева" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Юлия Прокопьева</div>
+            <div class="pract-card__city"><strong>Дубай / Санкт-Петербург</strong></div>
+            <div class="pract-card__travel">Выезд: Казань, Симферополь</div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="санкт-петербург, ижевск, иркутск, казань, минск, новосибирск" data-surname="харина">
+          <img src="../images/practitioner-photos/kharina-natalya.jpg" alt="Наталья Харина" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Наталья Харина</div>
+            <div class="pract-card__city"><strong>Санкт-Петербург</strong></div>
+            <div class="pract-card__travel">Выезд: Ижевск, Иркутск, Казань, Минск, Новосибирск</div>
+          </div>
+        </div>
+
+        <!-- === Регионы (А→Я) === -->
+        <div class="pract-card pract-card--no-photo" data-city="уфа" data-surname="абдуллина">
+
+          <div class="pract-card__info">
+            <div class="pract-card__name">Регина Абдуллина</div>
+            <div class="pract-card__city"><strong>Уфа</strong></div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="новосибирск, барнаул, бердск, бийск, горно-алтайск, омск" data-surname="митьковская">
+          <img src="../images/practitioner-photos/mitkovskaya-anastasiya.jpg" alt="Анастасия Митьковская" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Анастасия Митьковская</div>
+            <div class="pract-card__city"><strong>Новосибирск</strong></div>
+            <div class="pract-card__travel">Выезд: Барнаул, Бердск, Бийск, Горно-Алтайск, Омск</div>
+          </div>
+        </div>
+
+        <div class="pract-card" data-city="нижний новгород, владимир, гороховец, иваново, ковров" data-surname="федаркевич">
+          <img src="../images/practitioner-photos/fedarkevich-alyona.jpg" alt="Алёна Федаркевич" class="pract-card__img">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Алёна Федаркевич</div>
+            <div class="pract-card__city"><strong>Нижний Новгород</strong></div>
+            <div class="pract-card__travel">Выезд: Владимир, Гороховец, Иваново, Ковров</div>
+          </div>
+        </div>
+
+        <!-- === За рубежом (А→Я) === -->
+        <div class="pract-card" data-city="израиль, барнаул, саранск, симферополь, чебоксары" data-surname="богуцкая">
+          <img src="../images/practitioner-photos/bogutskaya-anna.jpg" alt="Анна Богуцкая" class="pract-card__img" style="object-position:center bottom">
+          <div class="pract-card__info">
+            <div class="pract-card__name">Анна Богуцкая</div>
+            <div class="pract-card__city"><strong>Израиль</strong></div>
+            <div class="pract-card__travel">Выезд: Барнаул, Саранск, Симферополь, Чебоксары</div>
+          </div>
+        </div>
+
+        <div class="pract-card pract-card--no-photo" data-city="болгария, казань, оренбург, стамбул, уфа" data-surname="денисьева">
+
+          <div class="pract-card__info">
+            <div class="pract-card__name">Марина Денисьева</div>
+            <div class="pract-card__city"><strong>София, Болгария</strong></div>
+            <div class="pract-card__travel">Выезд: Казань, Оренбург, Стамбул, Уфа</div>
+          </div>
+        </div>
+
+        <div class="pract-card pract-card--no-photo" data-city="кипр, лимассол" data-surname="поспелова">
+
+          <div class="pract-card__info">
+            <div class="pract-card__name">Татьяна Поспелова</div>
+            <div class="pract-card__city"><strong>Лимассол, Кипр</strong></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 9 PRINCIPLES ===== -->
+  <section class="principles" id="principles">
+    <div class="principles-inner">
+      <div class="section-header">
+        <div class="section-label">9 ПРИНЦИПОВ МЕТОДА</div>
+        <a href="#" class="section-sublabel section-sublabel--link">Подробнее →</a>
+      </div>
+
+      <!-- Row 1: fill + 480px -->
+      <div class="p-row p-row--1">
+        <div class="p-card p-card--fill">
+          <img src="../images/JzdzL.webp" alt="" class="p-card__bg">
+          <div class="p-card__overlay"></div>
+          <div class="p-card__content">
+            <div class="p-card__num">01</div>
+            <div class="p-card__title">Движение с вниманием</div>
+            <div class="p-card__desc">Осознанное внимание к движению пробуждает нейропластичность</div>
+          </div>
+          <div class="p-card__arrow p-card__arrow--lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-md"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+        <div class="p-card p-card--w480">
+          <img src="../images/gqHyG.webp" alt="" class="p-card__bg">
+          <div class="p-card__overlay"></div>
+          <div class="p-card__content">
+            <div class="p-card__num">02</div>
+            <div class="p-card__title">Медленность</div>
+            <div class="p-card__desc">Замедление позволяет мозгу воспринимать тонкие различия</div>
+          </div>
+          <div class="p-card__arrow p-card__arrow--lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-md"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+      </div>
+
+      <!-- Row 2: 380 + fill + 380 -->
+      <div class="p-row p-row--2">
+        <div class="p-card p-card--w380">
+          <img src="../images/a61hf.webp" alt="" class="p-card__bg">
+          <div class="p-card__overlay"></div>
+          <div class="p-card__content p-card__content--sm">
+            <div class="p-card__num">03</div>
+            <div class="p-card__title p-card__title--sm">Вариативность</div>
+            <div class="p-card__desc p-card__desc--sm">Разнообразие движений даёт мозгу богатый материал</div>
+          </div>
+          <div class="p-card__arrow p-card__arrow--sm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+        <div class="p-card p-card--fill">
+          <img src="../images/d92vq.webp" alt="" class="p-card__bg">
+          <div class="p-card__overlay"></div>
+          <div class="p-card__content p-card__content--sm">
+            <div class="p-card__num">04</div>
+            <div class="p-card__title p-card__title--sm">Субтильность</div>
+            <div class="p-card__desc p-card__desc--sm">Уменьшение усилия обостряет чувствительность мозга</div>
+          </div>
+          <div class="p-card__arrow p-card__arrow--sm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+        <div class="p-card p-card--w380">
+          <img src="../images/xm02f.webp" alt="" class="p-card__bg">
+          <div class="p-card__overlay"></div>
+          <div class="p-card__content p-card__content--sm">
+            <div class="p-card__num">05</div>
+            <div class="p-card__title p-card__title--sm">Энтузиазм</div>
+            <div class="p-card__desc p-card__desc--sm">Радость усиливает обучение и запоминание</div>
+          </div>
+          <div class="p-card__arrow p-card__arrow--sm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+      </div>
+
+      <!-- Row 3: fill + 500 -->
+      <div class="p-row p-row--3">
+        <div class="p-card p-card--fill">
+          <img src="../images/iP8hG.webp" alt="" class="p-card__bg">
+          <div class="p-card__overlay"></div>
+          <div class="p-card__content">
+            <div class="p-card__num">06</div>
+            <div class="p-card__title">Гибкие цели</div>
+            <div class="p-card__desc">Отпускание жёстких ожиданий освобождает мозг</div>
+          </div>
+          <div class="p-card__arrow p-card__arrow--lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-md"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+        <div class="p-card p-card--w500">
+          <img src="../images/l6xvl.webp" alt="" class="p-card__bg">
+          <div class="p-card__overlay"></div>
+          <div class="p-card__content">
+            <div class="p-card__num">07</div>
+            <div class="p-card__title">Обучающий переключатель</div>
+            <div class="p-card__desc">Включение режима активного обучения мозга</div>
+          </div>
+          <div class="p-card__arrow p-card__arrow--lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-md"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+      </div>
+
+      <!-- Row 4: 520 + fill -->
+      <div class="p-row p-row--4">
+        <div class="p-card p-card--w520">
+          <img src="../images/zLPGy.webp" alt="" class="p-card__bg">
+          <div class="p-card__overlay"></div>
+          <div class="p-card__content p-card__content--sm">
+            <div class="p-card__num">08</div>
+            <div class="p-card__title p-card__title--sm">Воображение и мечты</div>
+            <div class="p-card__desc p-card__desc--sm">Визуализация создаёт нейронные пути</div>
+          </div>
+          <div class="p-card__arrow p-card__arrow--sm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+        <div class="p-card p-card--fill">
+          <img src="../images/37huf.webp" alt="" class="p-card__bg">
+          <div class="p-card__overlay"></div>
+          <div class="p-card__content p-card__content--sm p-card__content--wide">
+            <div class="p-card__num">09</div>
+            <div class="p-card__title p-card__title--sm">Осознанность</div>
+            <div class="p-card__desc p-card__desc--sm p-card__desc--wide">Осознание как действие. Осознание — это не вещь, не состояние и не то, чем можно обладать.</div>
+          </div>
+          <div class="p-card__arrow p-card__arrow--sm"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BOOK ===== -->
+  <section class="book" id="book">
+    <div class="book-feature">
+      <div class="book-left">
+        <div class="book-tag">РЕКОМЕНДУЕМ</div>
+        <h2 class="book-title">ДЕТИ С
+НЕОГРАНИЧЕННЫМИ
+ВОЗМОЖНОСТЯМИ</h2>
+        <div class="book-author">Анат Баниэль</div>
+        <p class="book-desc">Метод пробуждения мозга для улучшения жизни особых детей. Книга, которая поможет понять основы метода и начать путь к переменам.</p>
+        <a href="https://www.litres.ru/book/anat-baniel/deti-s-neogranichennymi-vozmozhnostyami-42548965/" target="_blank" rel="noopener" class="btn-pill btn-pill--book">
+          <span class="btn-pill__label btn-pill__label--lg">Подробнее</span>
+          <span class="btn-pill__circle btn-pill__circle--lg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-sm"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+          </span>
+        </a>
+      </div>
+      <img src="../images/XMtu4.webp" alt="Книга — Дети с неограниченными возможностями" class="book-cover">
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-line"></div>
+    <div class="footer-row">
+      <div class="footer-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-md"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"/><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"/><path d="M5 21h14"/></svg>
+        <span>Сообщество практиков АБМ®</span>
+      </div>
+      <div class="footer-links">
+        <a href="#about" class="footer-link">О методе</a>
+        <a href="#search" class="footer-link">Практики</a>
+        <a href="#book" class="footer-link">Дети с неограниченными возможностями</a>
+        <!-- <a href="#" class="footer-link">Контакты</a> -->
+      </div>
+      <div class="footer-copy">© 2026 ABM Сообщество</div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+var grid = document.getElementById('practGrid');
+var originalOrder = Array.from(grid.querySelectorAll('.pract-card'));
+
+function filterByCity(query) {
+  var cards = grid.querySelectorAll('.pract-card');
+  var q = query.toLowerCase().trim();
+  if (!q) {
+    // «Все» — сортировка по фамилии
+    var sorted = originalOrder.slice().sort(function(a, b) {
+      return a.dataset.surname.localeCompare(b.dataset.surname, 'ru');
+    });
+    sorted.forEach(function(c) { grid.appendChild(c); c.hidden = false; });
+  } else {
+    // Вернуть исходный порядок (по группам) и отфильтровать
+    originalOrder.forEach(function(c) {
+      grid.appendChild(c);
+      c.hidden = c.dataset.city.indexOf(q) === -1;
+    });
+  }
+}
+
+// City chips
+document.querySelectorAll('.city-chip').forEach(function(chip) {
+  chip.addEventListener('click', function() {
+    document.querySelectorAll('.city-chip').forEach(function(c) { c.classList.remove('city-chip--active'); });
+    chip.classList.add('city-chip--active');
+    var val = chip.dataset.filter;
+    document.querySelector('.search-bar__input').value = val ? chip.textContent : '';
+    filterByCity(val);
+  });
+});
+
+// Search input
+var input = document.querySelector('.search-bar__input');
+input.addEventListener('input', function() {
+  document.querySelectorAll('.city-chip').forEach(function(c) { c.classList.remove('city-chip--active'); });
+  filterByCity(input.value);
+});
+
+// Search button
+document.querySelector('.btn-pill--search').addEventListener('click', function(e) {
+  e.preventDefault();
+  filterByCity(input.value);
+});
+
+// Initial filter: Все
+filterByCity('');
+</script>
+</body>
+</html>
