@@ -128,11 +128,8 @@
 
   /* BOOK — calm */
   .book{display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:start;padding:64px 0 32px;border-top:1px solid var(--line-2);margin-top:24px}
-  .book .cover-wrap{aspect-ratio:3/4;background:linear-gradient(180deg,#f3edd8 0%, #cfd8e8 60%, #5a7fb1 100%);border-radius:4px;box-shadow:0 18px 36px rgba(0,0,0,.14), 0 4px 12px rgba(0,0,0,.08);position:relative;overflow:hidden}
-  .book .cover-wrap .top{position:absolute;left:14px;right:14px;top:14px;font-family:'Manrope',sans-serif;font-weight:800;font-size:16px;line-height:1.05;color:#1b1b22;letter-spacing:-0.01em}
-  .book .cover-wrap .top small{display:block;font-weight:500;font-size:9px;letter-spacing:.12em;color:#1b1b22;opacity:.8;margin-top:6px}
-  .book .cover-wrap .blob{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:96px;height:96px;border-radius:50%;background:#E16A2C;color:#fff;display:grid;place-items:center;text-align:center;font-family:'Manrope',sans-serif;font-weight:700;font-size:8.5px;line-height:1.25;padding:14px}
-  .book .cover-wrap .stripe{position:absolute;left:0;right:0;bottom:0;height:38%;background:radial-gradient(ellipse at 30% 20%, #b06b3e 0%, transparent 50%), linear-gradient(180deg, #5a7fb1 0%, #1f3a5f 100%)}
+  .book .cover-wrap{aspect-ratio:3/4;border-radius:4px;box-shadow:0 18px 36px rgba(0,0,0,.14), 0 4px 12px rgba(0,0,0,.08);position:relative;overflow:hidden}
+  .book .cover-wrap img{display:block;width:100%;height:100%;object-fit:cover}
   .book .body .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
   .book .body h2{font-family:'Manrope',sans-serif;font-weight:700;font-size:32px;letter-spacing:-0.02em;line-height:1.1;margin:14px 0 6px}
   .book .body .author{font-family:'Source Serif 4',Georgia,serif;font-style:italic;font-size:15px;color:var(--ink-3);margin-bottom:22px}
@@ -145,6 +142,11 @@
   footer .copy{color:var(--muted)}
 
   svg{display:block}
+
+  @media (max-width: 720px){
+    .top-row{flex-direction:column;align-items:flex-start;gap:14px}
+    nav.menu{flex-wrap:wrap;gap:14px 24px}
+  }
 
   @media (max-width: 1080px){
     .hero-grid{grid-template-columns:1fr;gap:32px}
@@ -167,7 +169,7 @@
   <div class="container top-row">
     <div class="brand">
       <span class="leaf" aria-hidden="true">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 19c4-1 8-4 11-9 3 4 6 6 7 6-1 4-4 7-9 7-4 0-7-2-9-4Z" fill="#3a6e3e"/><path d="M5 18c3-3 6-7 8-12" stroke="#274d2c" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"/><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"/><path d="M5 21h14"/></svg>
       </span>
       Сообщество практиков АБМ<sup style="font-size:9px">®</sup>
     </div>
@@ -463,9 +465,7 @@
     <div class="book">
       <div>
         <div class="cover-wrap" aria-label="Обложка книги">
-          <div class="top">Дети<br/>с&nbsp;неограниченными<br/>возможностями<small>Анат Баниэль</small></div>
-          <div class="blob">Метод пробуждения мозга для улучшения жизни особых детей</div>
-          <div class="stripe"></div>
+          <img src="../images/XMtu4.webp" alt="Обложка книги «Дети с неограниченными возможностями»">
         </div>
       </div>
       <div class="body">
@@ -483,7 +483,7 @@
 <footer>
   <div class="container row">
     <div class="brand">
-      <span class="leaf"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 19c4-1 8-4 11-9 3 4 6 6 7 6-1 4-4 7-9 7-4 0-7-2-9-4Z" fill="#3a6e3e"/></svg></span>
+      <span class="leaf"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3"/><path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4"/><path d="M5 21h14"/></svg></span>
       Сообщество практиков АБМ<sup style="font-size:9px">®</sup>
     </div>
     <nav>
