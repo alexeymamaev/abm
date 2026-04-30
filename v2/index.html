@@ -121,8 +121,9 @@
   /* 9 PRINCIPLES — text-first, no images */
   .nine-head{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:end;margin-bottom:36px}
   .nine-head p{font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.55;color:var(--ink-2);margin:0;max-width:520px}
-  .nine-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
-  .ncell{padding:28px 24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:200px;display:flex;flex-direction:column;gap:8px;background:transparent;transition:background .2s}
+  .nine-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line);border-right:1px solid var(--line);overflow:hidden}
+  .ncell{padding:28px 24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:200px;display:flex;flex-direction:column;gap:8px;background:transparent;transition:background .2s;min-width:0;overflow-wrap:break-word}
+  .ncell:nth-child(3n){border-right:none}
   .ncell:hover{background:var(--bg-soft)}
   .ncell .num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--muted)}
   .ncell h4{font-family:'Manrope',sans-serif;font-weight:700;font-size:22px;letter-spacing:-0.015em;margin:0 0 6px;line-height:1.1}
@@ -130,7 +131,10 @@
   .ncell .arr{margin-top:auto;padding-top:14px;display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
 
   /* BOOK calm */
-  .book{display:grid;grid-template-columns:240px 1fr;gap:48px;align-items:start;padding:48px 0 24px;border-top:1px solid var(--line-2);margin-top:24px}
+  .book{display:grid;grid-template-columns:240px 1fr;grid-template-areas:"cover label" "cover body";gap:6px 48px;align-items:start;padding:48px 0 24px;border-top:1px solid var(--line-2);margin-top:24px}
+  .book .book-cover-col{grid-area:cover}
+  .book > .label{grid-area:label}
+  .book .body{grid-area:body}
   .book .cover-wrap{aspect-ratio:3/4;border-radius:4px;box-shadow:0 18px 36px rgba(0,0,0,.14), 0 4px 12px rgba(0,0,0,.08);position:relative;overflow:hidden}
   .book .cover-wrap img{display:block;width:100%;height:100%;object-fit:cover}
   .book .body .label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
@@ -183,13 +187,18 @@
     .who-cols{grid-template-columns:1fr}
     .pgrid{grid-template-columns:repeat(2,1fr)}
     .nine-grid{grid-template-columns:repeat(2,1fr)}
+    .ncell{border-right:1px solid var(--line)}
+    .ncell:nth-child(3n){border-right:1px solid var(--line)}
+    .ncell:nth-child(2n), .ncell:last-child{border-right:none}
     .nine-head{grid-template-columns:1fr;gap:24px}
-    .book{grid-template-columns:160px 1fr;gap:24px}
+    .book{grid-template-columns:160px 1fr;gap:6px 24px}
     .sec-title{font-size:36px}
   }
   @media (max-width: 720px){
-    .book{grid-template-columns:1fr;gap:28px}
-    .book > div:first-child{max-width:280px}
+    .book{grid-template-columns:1fr;grid-template-areas:"label" "cover" "body";gap:14px}
+    .book .book-cover-col{max-width:280px}
+    .nine-grid{grid-template-columns:1fr}
+    .ncell, .ncell:nth-child(3n){border-right:none}
   }
 </style>
 </head>
@@ -482,13 +491,13 @@
 <section class="block" id="book">
   <div class="container">
     <div class="book">
-      <div>
+      <span class="label">Рекомендуем</span>
+      <div class="book-cover-col">
         <div class="cover-wrap" aria-label="Обложка книги">
           <img src="../images/XMtu4.webp" alt="Обложка книги «Дети с неограниченными возможностями»">
         </div>
       </div>
       <div class="body">
-        <span class="label">Рекомендуем</span>
         <h2>Дети с&nbsp;неограниченными возможностями</h2>
         <div class="author">Анат Баниэль</div>
         <p>Метод пробуждения мозга для улучшения жизни особых детей. Книга, которая поможет понять основы метода и&nbsp;начать путь к&nbsp;переменам.</p>
