@@ -671,6 +671,7 @@ const PRACTS = {"mitkovskaya-anastasiya": {"name": "Анастасия Мить�
       photoImg.src = 'images/practitioner-photos/' + p.photo;
       photoImg.alt = p.name;
       photoImg.style.display = '';
+      photoImg.style.objectPosition = (id === 'melkumov-grigory') ? 'center top' : '';
       if(stripes) stripes.style.display = 'none';
     } else {
       if(stripes) stripes.style.display = '';
