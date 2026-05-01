@@ -216,6 +216,10 @@
   .cities-acc-search{display:flex;align-items:center;background:var(--bg-soft);border:1px solid var(--line-2);border-radius:999px;padding:6px 6px 6px 16px;gap:10px;margin:14px 0 18px}
   .cities-acc-search svg{flex:none;color:var(--muted)}
   .cities-acc-search input{flex:1;border:0;outline:0;background:transparent;font:inherit;font-size:14px;color:var(--ink);padding:8px 0}
+  .cities-section + .cities-section{margin-top:22px;padding-top:18px;border-top:1px solid var(--line-2)}
+  .cities-section-title{display:flex;align-items:baseline;gap:10px;margin:0 0 12px}
+  .cities-section-title .lbl{font-family:'Manrope',sans-serif;font-weight:700;font-size:14px;letter-spacing:-0.005em;color:var(--ink-2)}
+  .cities-section-title .cnt{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
   .cities-grid{column-count:4;column-gap:28px}
   @media (max-width: 1100px){ .cities-grid{column-count:3} }
   @media (max-width: 760px){ .cities-grid{column-count:2} }
@@ -279,8 +283,8 @@
             <div class="l">сертифицированных практиков в&nbsp;РФ</div>
           </div>
           <div class="s">
-            <div class="n">51</div>
-            <div class="l">город в&nbsp;РФ, где проходят интенсивы АБМ</div>
+            <div class="n" id="heroCityCount">45</div>
+            <div class="l" id="heroCityLabel">городов в&nbsp;РФ, где проходят интенсивы АБМ</div>
           </div>
         </div>
       </div>
@@ -329,7 +333,14 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           <input id="citiesAccFilter" placeholder="Найти город в списке" aria-label="Фильтр городов" />
         </div>
-        <div class="cities-grid" id="citiesGrid"></div>
+        <div class="cities-section" id="citiesSectionRF">
+          <div class="cities-section-title"><span class="lbl">В России</span><span class="cnt" id="citiesCountRF"></span></div>
+          <div class="cities-grid" id="citiesGridRF"></div>
+        </div>
+        <div class="cities-section" id="citiesSectionForeign">
+          <div class="cities-section-title"><span class="lbl">За рубежом</span><span class="cnt" id="citiesCountForeign"></span></div>
+          <div class="cities-grid" id="citiesGridForeign"></div>
+        </div>
       </div>
     </div>
 
@@ -785,15 +796,37 @@ const PRACTS = {"mitkovskaya-anastasiya": {"name": "Анастасия Мить�
 (function(){
   const acc = document.getElementById('citiesAcc');
   if(!acc || typeof PRACTS === 'undefined') return;
-  const grid = document.getElementById('citiesGrid');
+  const gridRF = document.getElementById('citiesGridRF');
+  const gridForeign = document.getElementById('citiesGridForeign');
+  const sectionForeign = document.getElementById('citiesSectionForeign');
   const countEl = document.getElementById('citiesAccCount');
+  const countRFEl = document.getElementById('citiesCountRF');
+  const countForeignEl = document.getElementById('citiesCountForeign');
   const filterInput = document.getElementById('citiesAccFilter');
   const toggle = document.getElementById('citiesAccToggle');
 
+  const FOREIGN = new Set(['Дубай','Лимассол','Рош Аин (Израиль)','София (Болгария)','Стамбул','Республика Кипр','Минск','Иерусалим','Тель-Авив']);
+
+  function cityPlural(n){
+    const m100 = n % 100; if(m100 >= 11 && m100 <= 14) return 'городов';
+    const m10 = n % 10;
+    if(m10 === 1) return 'город';
+    if(m10 >= 2 && m10 <= 4) return 'города';
+    return 'городов';
+  }
+
+  function cleanCity(t){
+    if(!t) return '';
+    t = t.replace(/^Россия\s*[-—–]\s*/i, '');
+    if(/^(в|во|по|при|с|со|для|возможен|возможны|готова|готов)\s/i.test(t)) return '';
+    return t;
+  }
   function normCity(raw){
     if(!raw) return '';
     let t = raw.trim();
     if(!t || /^(нет|—|-|–)$/i.test(t)) return '';
+    t = cleanCity(t);
+    if(!t) return '';
     t = t.replace(/Санкт\s+Петербург/gi, 'Санкт-Петербург');
     t = t.replace(/\s+/g,' ').trim();
     return t;
@@ -830,56 +863,76 @@ const PRACTS = {"mitkovskaya-anastasiya": {"name": "Анастасия Мить�
       if(tc !== home) add(tc, slug, p.name, 'travel');
     }
   }
-  const cities = Object.keys(cityIndex).sort((a,b) => a.localeCompare(b, 'ru'));
+  const allCities = Object.keys(cityIndex).sort((a,b) => a.localeCompare(b, 'ru'));
+  const rfCities = allCities.filter(c => !FOREIGN.has(c));
+  const foreignCities = allCities.filter(c => FOREIGN.has(c));
 
   const chevSvg = '<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  for(const city of cities){
-    const data = cityIndex[city];
-    const total = data.home.length + data.travel.length;
-    const block = document.createElement('div');
-    block.className = 'city-block';
-    block.dataset.city = city.toLowerCase();
-    let detail = '';
-    if(data.home.length){
-      detail += '<ul class="pract-group home"><div class="gh">в городе</div>' +
-        data.home.map(p => '<li data-slug="'+p.slug+'">'+p.name+'</li>').join('') + '</ul>';
+  function renderInto(grid, list){
+    for(const city of list){
+      const data = cityIndex[city];
+      const total = data.home.length + data.travel.length;
+      const block = document.createElement('div');
+      block.className = 'city-block';
+      block.dataset.city = city.toLowerCase();
+      let detail = '';
+      if(data.home.length){
+        detail += '<ul class="pract-group home"><div class="gh">в городе</div>' +
+          data.home.map(p => '<li data-slug="'+p.slug+'">'+p.name+'</li>').join('') + '</ul>';
+      }
+      if(data.travel.length){
+        detail += '<ul class="pract-group travel"><div class="gh">с выездом</div>' +
+          data.travel.map(p => '<li data-slug="'+p.slug+'">'+p.name+'</li>').join('') + '</ul>';
+      }
+      block.innerHTML =
+        '<div class="city-name" data-city="'+city+'">' +
+          '<span class="nm">'+city+'</span>' +
+          '<span class="cnt">'+total+'</span>' +
+          chevSvg +
+        '</div>' +
+        '<div class="city-detail">'+detail+'</div>';
+      grid.appendChild(block);
     }
-    if(data.travel.length){
-      detail += '<ul class="pract-group travel"><div class="gh">с выездом</div>' +
-        data.travel.map(p => '<li data-slug="'+p.slug+'">'+p.name+'</li>').join('') + '</ul>';
-    }
-    block.innerHTML =
-      '<div class="city-name" data-city="'+city+'">' +
-        '<span class="nm">'+city+'</span>' +
-        '<span class="cnt">'+total+'</span>' +
-        chevSvg +
-      '</div>' +
-      '<div class="city-detail">'+detail+'</div>';
-    grid.appendChild(block);
   }
-  if(countEl) countEl.textContent = cities.length + ' городов';
+  renderInto(gridRF, rfCities);
+  renderInto(gridForeign, foreignCities);
+  if(!foreignCities.length && sectionForeign) sectionForeign.style.display = 'none';
+
+  if(countEl) countEl.textContent = allCities.length + ' ' + cityPlural(allCities.length);
+  if(countRFEl) countRFEl.textContent = rfCities.length + ' ' + cityPlural(rfCities.length);
+  if(countForeignEl) countForeignEl.textContent = foreignCities.length + ' ' + cityPlural(foreignCities.length);
+
+  const heroN = document.getElementById('heroCityCount');
+  const heroL = document.getElementById('heroCityLabel');
+  if(heroN) heroN.textContent = rfCities.length;
+  if(heroL) heroL.innerHTML = cityPlural(rfCities.length) + ' в&nbsp;РФ, где проходят интенсивы АБМ';
 
   toggle.addEventListener('click', () => {
     const open = acc.classList.toggle('open');
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
-  grid.addEventListener('click', e => {
-    const li = e.target.closest('.pract-group li');
-    if(li && li.dataset.slug){
-      const card = document.querySelector('.pcard[data-id="'+li.dataset.slug+'"]');
-      if(card) card.click();
-      return;
-    }
-    const head = e.target.closest('.city-name');
-    if(!head) return;
-    head.parentElement.classList.toggle('open');
-  });
+  function bindGridClicks(grid){
+    if(!grid) return;
+    grid.addEventListener('click', e => {
+      const li = e.target.closest('.pract-group li');
+      if(li && li.dataset.slug){
+        const card = document.querySelector('.pcard[data-id="'+li.dataset.slug+'"]');
+        if(card) card.click();
+        return;
+      }
+      const head = e.target.closest('.city-name');
+      if(!head) return;
+      head.parentElement.classList.toggle('open');
+    });
+  }
+  bindGridClicks(gridRF);
+  bindGridClicks(gridForeign);
 
   if(filterInput){
     filterInput.addEventListener('input', e => {
       const q = e.target.value.trim().toLowerCase();
-      grid.querySelectorAll('.city-block').forEach(b => {
+      acc.querySelectorAll('.city-block').forEach(b => {
         if(!q) { b.classList.remove('hidden'); return; }
         b.classList.toggle('hidden', !b.dataset.city.includes(q));
       });
