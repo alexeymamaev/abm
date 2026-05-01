@@ -201,6 +201,51 @@
     .nine-grid{grid-template-columns:1fr}
     .ncell, .ncell:nth-child(3n){border-right:none}
   }
+
+  /* CITIES ACCORDION (полный список городов под чипами) */
+  .cities-acc{margin-bottom:18px;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
+  .cities-acc-head{display:flex;align-items:center;gap:14px;padding:16px 22px;cursor:pointer;user-select:none;background:#fff;transition:background .15s}
+  .cities-acc-head:hover{background:var(--bg-soft)}
+  .cities-acc-head .lbl{font-family:'Manrope',sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.01em;color:var(--ink)}
+  .cities-acc-head .meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .cities-acc-head .spacer{flex:1}
+  .cities-acc-head .hint{font-size:13px;color:var(--muted)}
+  .cities-acc-head .chev{width:28px;height:28px;border-radius:50%;background:var(--bg-soft);display:grid;place-items:center;color:var(--ink-2);transition:transform .25s,background .15s}
+  .cities-acc.open .cities-acc-head .chev{transform:rotate(180deg);background:#15161A;color:#fff}
+  .cities-acc-body{display:none;padding:8px 22px 22px;border-top:1px solid var(--line-2)}
+  .cities-acc.open .cities-acc-body{display:block}
+  .cities-acc-search{display:flex;align-items:center;background:var(--bg-soft);border:1px solid var(--line-2);border-radius:999px;padding:6px 6px 6px 16px;gap:10px;margin:14px 0 18px}
+  .cities-acc-search svg{flex:none;color:var(--muted)}
+  .cities-acc-search input{flex:1;border:0;outline:0;background:transparent;font:inherit;font-size:14px;color:var(--ink);padding:8px 0}
+  .cities-grid{column-count:4;column-gap:28px}
+  @media (max-width: 1100px){ .cities-grid{column-count:3} }
+  @media (max-width: 760px){ .cities-grid{column-count:2} }
+  @media (max-width: 480px){ .cities-grid{column-count:1} }
+  @media (max-width: 720px){
+    .cities-acc-head{padding:14px 16px;gap:10px}
+    .cities-acc-head .hint{display:none}
+    .cities-acc-body{padding:6px 16px 18px}
+  }
+  .city-block{break-inside:avoid;margin-bottom:2px}
+  .city-name{font-family:'Inter',sans-serif;font-weight:500;font-size:14px;letter-spacing:-0.005em;color:var(--ink-2);margin:0;padding:7px 8px 7px 10px;display:flex;align-items:center;gap:8px;cursor:pointer;border-radius:8px;transition:background .12s,color .12s}
+  .city-name:hover{background:var(--bg-soft);color:var(--ink)}
+  .city-name .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .city-name .cnt{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--muted);font-weight:500;flex:none}
+  .city-name .chev{width:14px;height:14px;color:var(--muted);flex:none;transition:transform .2s;opacity:.5}
+  .city-block.open .city-name{background:#15161A;color:#fff}
+  .city-block.open .city-name .cnt{color:rgba(255,255,255,.6)}
+  .city-block.open .city-name .chev{transform:rotate(180deg);color:#fff;opacity:.9}
+  .city-detail{display:none;padding:10px 10px 14px;margin:0 0 6px}
+  .city-block.open .city-detail{display:block}
+  .pract-group{margin:0;padding:0;list-style:none}
+  .pract-group + .pract-group{margin-top:8px}
+  .pract-group .gh{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;display:flex;align-items:center;gap:6px}
+  .pract-group .gh::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--clay);opacity:.7}
+  .pract-group.travel .gh::before{background:var(--ink-3);opacity:.45}
+  .pract-group li{font-size:13px;color:var(--ink-2);padding:2px 0;line-height:1.35;cursor:pointer}
+  .pract-group li:hover{color:var(--clay)}
+  .pract-group.travel li{color:var(--ink-3)}
+  .city-block.hidden{display:none}
 </style>
 </head>
 <body>
@@ -249,47 +294,6 @@
   </div>
 </section>
 
-<!-- ABOUT / WHO IS IT FOR -->
-<section class="block" id="about">
-  <div class="container">
-    <div class="sec-eyebrow"><span class="eyebrow">Кому подходит ABM</span><span class="ln"></span></div>
-    <div class="who-head">
-      <div>
-        <h2 class="sec-title">Взрослые и&nbsp;дети<br/>с&nbsp;различными состояниями</h2>
-      </div>
-      <a href="about.html#who" class="btn lite">Подробнее
-        <span class="arr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
-      </a>
-    </div>
-
-    <div class="who-cols">
-      <div class="who-col">
-        <span class="label">Взрослые</span>
-        <h3>Для&nbsp;взрослых</h3>
-        <ul>
-          <li><span class="dot"></span>Хроническая боль</li>
-          <li><span class="dot"></span>Восстановление после инсульта</li>
-          <li><span class="dot"></span>Возрастные ограничения</li>
-          <li><span class="dot"></span>Высокая результативность</li>
-          <li><span class="dot"></span>Общий фитнес и&nbsp;благополучие</li>
-        </ul>
-      </div>
-      <div class="who-col">
-        <span class="label">Дети</span>
-        <h3>Для&nbsp;детей</h3>
-        <ul>
-          <li><span class="dot"></span>Травмы и&nbsp;повреждения мозга</li>
-          <li><span class="dot"></span>РАС и&nbsp;СДВГ</li>
-          <li><span class="dot"></span>Генетические нарушения</li>
-          <li><span class="dot"></span>Структурные и&nbsp;родовые нарушения</li>
-          <li><span class="dot"></span>Недиагностированные задержки</li>
-          <li><span class="dot"></span>Типично развивающиеся дети</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- FIND PRACTITIONER -->
 <section class="block" id="search">
   <div class="container">
@@ -317,6 +321,23 @@
       <button class="chip-btn">Саранск</button>
     </div>
 
+    <div class="cities-acc" id="citiesAcc">
+      <div class="cities-acc-head" id="citiesAccToggle">
+        <span class="lbl">Все города и регионы</span>
+        <span class="meta" id="citiesAccCount"></span>
+        <span class="spacer"></span>
+        <span class="hint">не нашли свой? — раскройте список</span>
+        <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="cities-acc-body">
+        <div class="cities-acc-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="citiesAccFilter" placeholder="Найти город в списке" aria-label="Фильтр городов" />
+        </div>
+        <div class="cities-grid" id="citiesGrid"></div>
+      </div>
+    </div>
+
     <div class="req-row">
       <span>Не нашли свой город? Отправьте запрос&nbsp;— мы&nbsp;поможем найти специалиста.</span>
       <a href="#" class="btn">Запрос
@@ -328,7 +349,6 @@
       <article class="pcard empty" data-id="anosova-yana">
         <div class="name">Яна Аносова</div>
         <div class="city"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7 7-13a7 7 0 1 0-14 0c0 6 7 13 7 13Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg>Москва</div>
-        <div class="away">Выезд: Краснодар</div>
       </article>
       <article class="pcard empty" data-id="boldyreva-ekaterina">
         <div class="name">Екатерина Болдырева</div>
@@ -436,7 +456,6 @@
         <div class="ph" style="background-image:url(images/practitioner-photos/fedarkevich-alyona.jpg)"></div>
         <div class="name">Алёна Федаркевич</div>
         <div class="city"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7 7-13a7 7 0 1 0-14 0c0 6 7 13 7 13Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg>Нижний Новгород</div>
-        <div class="away">Выезд: Владимир, Гороховец, Иваново, Ковров</div>
       </article>
 
       <article class="pcard" data-id="bogutskaya-anna">
@@ -454,6 +473,47 @@
         <div class="name">Татьяна Поспелова</div>
         <div class="city"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7 7-13a7 7 0 1 0-14 0c0 6 7 13 7 13Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg>Лимассол, Кипр</div>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / WHO IS IT FOR -->
+<section class="block" id="about">
+  <div class="container">
+    <div class="sec-eyebrow"><span class="eyebrow">Кому подходит ABM</span><span class="ln"></span></div>
+    <div class="who-head">
+      <div>
+        <h2 class="sec-title">Взрослые и&nbsp;дети<br/>с&nbsp;различными состояниями</h2>
+      </div>
+      <a href="about.html#who" class="btn lite">Подробнее
+        <span class="arr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      </a>
+    </div>
+
+    <div class="who-cols">
+      <div class="who-col">
+        <span class="label">Взрослые</span>
+        <h3>Для&nbsp;взрослых</h3>
+        <ul>
+          <li><span class="dot"></span>Хроническая боль</li>
+          <li><span class="dot"></span>Восстановление после инсульта</li>
+          <li><span class="dot"></span>Возрастные ограничения</li>
+          <li><span class="dot"></span>Высокая результативность</li>
+          <li><span class="dot"></span>Общий фитнес и&nbsp;благополучие</li>
+        </ul>
+      </div>
+      <div class="who-col">
+        <span class="label">Дети</span>
+        <h3>Для&nbsp;детей</h3>
+        <ul>
+          <li><span class="dot"></span>Травмы и&nbsp;повреждения мозга</li>
+          <li><span class="dot"></span>РАС и&nbsp;СДВГ</li>
+          <li><span class="dot"></span>Генетические нарушения</li>
+          <li><span class="dot"></span>Структурные и&nbsp;родовые нарушения</li>
+          <li><span class="dot"></span>Недиагностированные задержки</li>
+          <li><span class="dot"></span>Типично развивающиеся дети</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -724,6 +784,109 @@ const PRACTS = {"mitkovskaya-anastasiya": {"name": "Анастасия Мить�
   if(mq.addEventListener) mq.addEventListener('change', update);
   else if(mq.addListener) mq.addListener(update);
   update();
+})();
+
+// CITIES ACCORDION — полный список городов с расхлопом по практикам
+(function(){
+  const acc = document.getElementById('citiesAcc');
+  if(!acc || typeof PRACTS === 'undefined') return;
+  const grid = document.getElementById('citiesGrid');
+  const countEl = document.getElementById('citiesAccCount');
+  const filterInput = document.getElementById('citiesAccFilter');
+  const toggle = document.getElementById('citiesAccToggle');
+
+  function normCity(raw){
+    if(!raw) return '';
+    let t = raw.trim();
+    if(!t || /^(нет|—|-|–)$/i.test(t)) return '';
+    t = t.replace(/Санкт\s+Петербург/gi, 'Санкт-Петербург');
+    t = t.replace(/\s+/g,' ').trim();
+    return t;
+  }
+  function primaryCity(field){
+    let t = normCity(field);
+    if(!t) return '';
+    let parts = t.split(/\s*\/\s*|\s*,\s*|\s+и\s+/).map(s=>s.trim()).filter(Boolean);
+    return parts[0] || t;
+  }
+  function splitTravel(field){
+    if(!field) return [];
+    let t = field.trim();
+    if(!t || /^(нет|—|-|–)$/i.test(t)) return [];
+    let parts = t.split(/[,;\n]+/).map(s=>s.trim()).filter(Boolean);
+    parts = parts.filter(p => !/^(нет|—|-|–)$/i.test(p) && p.length <= 40);
+    return parts.map(normCity).filter(Boolean);
+  }
+
+  const cityIndex = {};
+  function add(city, slug, name, mode){
+    if(!city) return;
+    if(!cityIndex[city]) cityIndex[city] = { home: [], travel: [] };
+    const other = mode === 'home' ? 'travel' : 'home';
+    cityIndex[city][other] = cityIndex[city][other].filter(x => x.slug !== slug);
+    if(!cityIndex[city][mode].some(x => x.slug === slug)){
+      cityIndex[city][mode].push({ slug, name });
+    }
+  }
+  for(const [slug, p] of Object.entries(PRACTS)){
+    const home = primaryCity(p.city);
+    add(home, slug, p.name, 'home');
+    for(const tc of splitTravel(p.travel_cities)){
+      if(tc !== home) add(tc, slug, p.name, 'travel');
+    }
+  }
+  const cities = Object.keys(cityIndex).sort((a,b) => a.localeCompare(b, 'ru'));
+
+  const chevSvg = '<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  for(const city of cities){
+    const data = cityIndex[city];
+    const total = data.home.length + data.travel.length;
+    const block = document.createElement('div');
+    block.className = 'city-block';
+    block.dataset.city = city.toLowerCase();
+    let detail = '';
+    if(data.home.length){
+      detail += '<ul class="pract-group home"><div class="gh">в городе</div>' +
+        data.home.map(p => '<li data-slug="'+p.slug+'">'+p.name+'</li>').join('') + '</ul>';
+    }
+    if(data.travel.length){
+      detail += '<ul class="pract-group travel"><div class="gh">с выездом</div>' +
+        data.travel.map(p => '<li data-slug="'+p.slug+'">'+p.name+'</li>').join('') + '</ul>';
+    }
+    block.innerHTML =
+      '<div class="city-name" data-city="'+city+'">' +
+        '<span class="nm">'+city+'</span>' +
+        '<span class="cnt">'+total+'</span>' +
+        chevSvg +
+      '</div>' +
+      '<div class="city-detail">'+detail+'</div>';
+    grid.appendChild(block);
+  }
+  if(countEl) countEl.textContent = cities.length + ' городов';
+
+  toggle.addEventListener('click', () => acc.classList.toggle('open'));
+
+  grid.addEventListener('click', e => {
+    const li = e.target.closest('.pract-group li');
+    if(li && li.dataset.slug){
+      const card = document.querySelector('.pcard[data-id="'+li.dataset.slug+'"]');
+      if(card) card.click();
+      return;
+    }
+    const head = e.target.closest('.city-name');
+    if(!head) return;
+    head.parentElement.classList.toggle('open');
+  });
+
+  if(filterInput){
+    filterInput.addEventListener('input', e => {
+      const q = e.target.value.trim().toLowerCase();
+      grid.querySelectorAll('.city-block').forEach(b => {
+        if(!q) { b.classList.remove('hidden'); return; }
+        b.classList.toggle('hidden', !b.dataset.city.includes(q));
+      });
+    });
+  }
 })();
 </script>
 
