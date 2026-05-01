@@ -202,17 +202,16 @@
     .ncell, .ncell:nth-child(3n){border-right:none}
   }
 
-  /* CITIES ACCORDION (полный список городов под чипами) */
-  .cities-acc{margin-bottom:18px;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
-  .cities-acc-head{display:flex;align-items:center;gap:14px;padding:16px 22px;cursor:pointer;user-select:none;background:#fff;transition:background .15s}
-  .cities-acc-head:hover{background:var(--bg-soft)}
-  .cities-acc-head .lbl{font-family:'Manrope',sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.01em;color:var(--ink)}
-  .cities-acc-head .meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-  .cities-acc-head .spacer{flex:1}
-  .cities-acc-head .hint{font-size:13px;color:var(--muted)}
-  .cities-acc-head .chev{width:28px;height:28px;border-radius:50%;background:var(--bg-soft);display:grid;place-items:center;color:var(--ink-2);transition:transform .25s,background .15s}
-  .cities-acc.open .cities-acc-head .chev{transform:rotate(180deg);background:#15161A;color:#fff}
-  .cities-acc-body{display:none;padding:8px 22px 22px;border-top:1px solid var(--line-2)}
+  /* CITIES — inline trigger + expandable list */
+  .cities-acc{margin:6px 0 22px}
+  .cities-acc-trigger{appearance:none;border:0;background:transparent;cursor:pointer;padding:6px 0;display:inline-flex;align-items:center;gap:12px;font:inherit;color:var(--ink-2);transition:color .15s}
+  .cities-acc-trigger:hover{color:var(--ink)}
+  .cities-acc-trigger .lbl{font-family:'Manrope',sans-serif;font-weight:600;font-size:14px;letter-spacing:-0.005em;border-bottom:1px dashed var(--line);padding-bottom:1px}
+  .cities-acc-trigger:hover .lbl{border-bottom-color:var(--ink-2)}
+  .cities-acc-trigger .meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .cities-acc-trigger .chev{width:14px;height:14px;color:var(--muted);transition:transform .25s,color .15s}
+  .cities-acc.open .cities-acc-trigger .chev{transform:rotate(180deg);color:var(--ink)}
+  .cities-acc-body{display:none;margin-top:14px;padding:18px 22px 22px;background:#fff;border:1px solid var(--line);border-radius:18px}
   .cities-acc.open .cities-acc-body{display:block}
   .cities-acc-search{display:flex;align-items:center;background:var(--bg-soft);border:1px solid var(--line-2);border-radius:999px;padding:6px 6px 6px 16px;gap:10px;margin:14px 0 18px}
   .cities-acc-search svg{flex:none;color:var(--muted)}
@@ -222,9 +221,7 @@
   @media (max-width: 760px){ .cities-grid{column-count:2} }
   @media (max-width: 480px){ .cities-grid{column-count:1} }
   @media (max-width: 720px){
-    .cities-acc-head{padding:14px 16px;gap:10px}
-    .cities-acc-head .hint{display:none}
-    .cities-acc-body{padding:6px 16px 18px}
+    .cities-acc-body{padding:14px 16px 16px}
   }
   .city-block{break-inside:avoid;margin-bottom:2px}
   .city-name{font-family:'Inter',sans-serif;font-weight:500;font-size:14px;letter-spacing:-0.005em;color:var(--ink-2);margin:0;padding:7px 8px 7px 10px;display:flex;align-items:center;gap:8px;cursor:pointer;border-radius:8px;transition:background .12s,color .12s}
@@ -322,13 +319,11 @@
     </div>
 
     <div class="cities-acc" id="citiesAcc">
-      <div class="cities-acc-head" id="citiesAccToggle">
+      <button type="button" class="cities-acc-trigger" id="citiesAccToggle" aria-expanded="false">
         <span class="lbl">Все города и регионы</span>
         <span class="meta" id="citiesAccCount"></span>
-        <span class="spacer"></span>
-        <span class="hint">не нашли свой? — раскройте список</span>
-        <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </div>
+        <span class="chev"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>
       <div class="cities-acc-body">
         <div class="cities-acc-search">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -864,7 +859,10 @@ const PRACTS = {"mitkovskaya-anastasiya": {"name": "Анастасия Мить�
   }
   if(countEl) countEl.textContent = cities.length + ' городов';
 
-  toggle.addEventListener('click', () => acc.classList.toggle('open'));
+  toggle.addEventListener('click', () => {
+    const open = acc.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
 
   grid.addEventListener('click', e => {
     const li = e.target.closest('.pract-group li');
