@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Прототип: список городов — abminfo.ru</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F1ECE4; --bg-soft:#EDE7DD; --card:#E8E2D6; --card-2:#E1DAC9;
+    --ink:#15161A; --ink-2:#2B2D33; --ink-3:#4B4D55; --muted:#7A766B;
+    --line: rgba(21,22,26,.10); --line-2: rgba(21,22,26,.06);
+    --pill:#FFFFFF; --clay:#A8533F;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1240px;margin:0 auto;padding:0 32px}
+
+  /* Локальный note */
+  .proto-note{position:fixed;top:12px;right:12px;background:#15161A;color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;padding:8px 12px;border-radius:8px;opacity:.85;z-index:10}
+
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
+  .sec-eyebrow{display:flex;align-items:center;gap:14px;color:var(--muted);max-width:1240px;margin:0 auto}
+  .sec-eyebrow .ln{flex:1;height:1px;background:var(--line)}
+  .sec-title{font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-0.02em;line-height:1.04;font-size:48px;margin:18px 0 0;max-width:760px}
+
+  section.block{padding:48px 0 64px}
+
+  /* Search head (как в проде) */
+  .search-head{display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;margin-bottom:24px}
+  .search-bar{display:flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 6px 6px 18px;gap:12px;margin-bottom:18px}
+  .search-bar svg{flex:none;color:var(--muted)}
+  .search-bar input{flex:1;border:0;outline:0;background:transparent;font:inherit;font-size:15px;color:var(--ink);padding:12px 0}
+  .city-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+  .chip-btn{font:inherit;font-size:13px;background:#fff;color:var(--ink-2);border:1px solid var(--line);padding:8px 14px;border-radius:999px;cursor:pointer}
+  .chip-btn.on{background:#15161A;color:#fff;border-color:#15161A}
+  .chip-btn .lbl{opacity:.7;margin-right:4px;font-family:'JetBrains Mono',monospace;font-size:11px}
+
+  .btn{display:inline-flex;align-items:center;gap:10px;background:#15161A;color:#fff;padding:9px 12px 9px 18px;border-radius:999px;font-size:13.5px;font-weight:500;border:0;cursor:pointer;font-family:inherit}
+  .btn .arr{width:24px;height:24px;background:#fff;color:#15161A;border-radius:50%;display:grid;place-items:center}
+
+  .req-row{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--bg-soft);border:1px solid var(--line-2);border-radius:999px;padding:10px 10px 10px 20px;font-size:14px;color:var(--ink-2);margin-bottom:32px}
+
+  /* === АККОРДЕОН ГОРОДОВ === */
+  .cities-acc{margin-bottom:18px;border:1px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
+  .cities-acc-head{display:flex;align-items:center;gap:14px;padding:16px 22px;cursor:pointer;user-select:none;background:#fff;transition:background .15s}
+  .cities-acc-head:hover{background:var(--bg-soft)}
+  .cities-acc-head .lbl{font-family:'Manrope',sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.01em;color:var(--ink)}
+  .cities-acc-head .meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .cities-acc-head .spacer{flex:1}
+  .cities-acc-head .hint{font-size:13px;color:var(--muted)}
+  .cities-acc-head .chev{width:28px;height:28px;border-radius:50%;background:var(--bg-soft);display:grid;place-items:center;color:var(--ink-2);transition:transform .25s,background .15s}
+  .cities-acc.open .cities-acc-head .chev{transform:rotate(180deg);background:#15161A;color:#fff}
+
+  .cities-acc-body{display:none;padding:8px 22px 22px;border-top:1px solid var(--line-2)}
+  .cities-acc.open .cities-acc-body{display:block}
+
+  .cities-acc-search{display:flex;align-items:center;background:var(--bg-soft);border:1px solid var(--line-2);border-radius:999px;padding:6px 6px 6px 16px;gap:10px;margin:14px 0 18px}
+  .cities-acc-search svg{flex:none;color:var(--muted)}
+  .cities-acc-search input{flex:1;border:0;outline:0;background:transparent;font:inherit;font-size:14px;color:var(--ink);padding:8px 0}
+
+  .cities-grid{column-count:4;column-gap:28px}
+  @media (max-width: 1100px){ .cities-grid{column-count:3} }
+  @media (max-width: 760px){ .cities-grid{column-count:2} }
+  @media (max-width: 480px){ .cities-grid{column-count:1} }
+
+  .city-block{break-inside:avoid;margin-bottom:2px}
+
+  .city-name{font-family:'Inter',sans-serif;font-weight:500;font-size:14px;letter-spacing:-0.005em;color:var(--ink-2);margin:0;padding:7px 8px 7px 10px;display:flex;align-items:center;gap:8px;cursor:pointer;border-radius:8px;transition:background .12s,color .12s}
+  .city-name:hover{background:var(--bg-soft);color:var(--ink)}
+  .city-name .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .city-name .cnt{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--muted);font-weight:500;flex:none}
+  .city-name .chev{width:14px;height:14px;color:var(--muted);flex:none;transition:transform .2s;opacity:.5}
+  .city-block.open .city-name{background:#15161A;color:#fff}
+  .city-block.open .city-name .cnt{color:rgba(255,255,255,.6)}
+  .city-block.open .city-name .chev{transform:rotate(180deg);color:#fff;opacity:.9}
+
+  .city-detail{display:none;padding:10px 10px 14px;margin:0 0 6px}
+  .city-block.open .city-detail{display:block}
+
+  .pract-group{margin:0;padding:0;list-style:none}
+  .pract-group + .pract-group{margin-top:8px}
+  .pract-group .gh{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 4px;display:flex;align-items:center;gap:6px}
+  .pract-group .gh::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--clay);opacity:.7}
+  .pract-group.travel .gh::before{background:var(--ink-3);opacity:.45}
+  .pract-group li{font-size:13px;color:var(--ink-2);padding:2px 0;line-height:1.35;cursor:pointer}
+  .pract-group li:hover{color:var(--clay)}
+  .pract-group.travel li{color:var(--ink-3)}
+
+  /* hidden — для поиска */
+  .city-block.hidden{display:none}
+
+  .demo-note{font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.06em;margin-top:32px;padding-top:16px;border-top:1px solid var(--line-2)}
+</style>
+</head>
+<body>
+
+<div class="proto-note">PROTOTYPE — cities accordion</div>
+
+<section class="block" id="search">
+  <div class="container">
+    <div class="sec-eyebrow"><span class="eyebrow">Найдите специалиста</span><span class="ln"></span></div>
+    <div class="search-head">
+      <h2 class="sec-title">Сертифицированные<br/>специалисты по&nbsp;городам</h2>
+    </div>
+
+    <div class="search-bar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input placeholder="Введите город" aria-label="Поиск города" />
+      <button class="btn">Найти
+        <span class="arr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      </button>
+    </div>
+
+    <div class="city-filters">
+      <button class="chip-btn on">Все города</button>
+      <button class="chip-btn"><span class="lbl">Популярные:</span></button>
+      <button class="chip-btn">Москва</button>
+      <button class="chip-btn">Санкт-Петербург</button>
+      <button class="chip-btn">Казань</button>
+      <button class="chip-btn">Новосибирск</button>
+      <button class="chip-btn">Нижний Новгород</button>
+      <button class="chip-btn">Саранск</button>
+    </div>
+
+    <!-- НОВОЕ: расхлоп со всеми городами -->
+    <div class="cities-acc" id="citiesAcc">
+      <div class="cities-acc-head" id="citiesAccToggle">
+        <span class="lbl">Все города и регионы</span>
+        <span class="meta" id="citiesAccCount">— загрузка</span>
+        <span class="spacer"></span>
+        <span class="hint">не нашли свой? — раскройте список</span>
+        <span class="chev"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+      <div class="cities-acc-body">
+        <div class="cities-acc-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <input id="citiesAccFilter" placeholder="Найти город в списке" aria-label="Фильтр городов" />
+        </div>
+        <div class="cities-grid" id="citiesGrid"></div>
+      </div>
+    </div>
+
+    <div class="req-row">
+      <span>Не нашли свой город? Отправьте запрос&nbsp;— мы&nbsp;поможем найти специалиста.</span>
+      <a href="#" class="btn">Запрос
+        <span class="arr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+      </a>
+    </div>
+
+    <div class="demo-note">
+      Прототип использует реальные данные практиков (24 чел., копия PRACTS из репо).<br>
+      Клик по городу — раскрывает практиков под ним (две группы: «в&nbsp;городе» / «с&nbsp;выездом»). Можно открыть несколько городов сразу. В&nbsp;проде клик по практику будет открывать модалку с&nbsp;био и&nbsp;контактами.
+    </div>
+  </div>
+</section>
+
+<script>
+const PRACTS = {
+  "mitkovskaya-anastasiya": {"name":"Анастасия Митьковская","city":"Новосибирск","travel_cities":"Бийск, Бердск, Барнаул,  Горно-Алтайск, Омск"},
+  "prokopyeva-yuliya": {"name":"Юлия Прокопьева","city":"Дубай/Санкт-Петеобург","travel_cities":"Казань, Симферополь"},
+  "karlova-tatyana": {"name":"Татьяна Карлова","city":"Москва","travel_cities":"Нет"},
+  "porfiriev-ivan": {"name":"Иван Порфирьев","city":"Москва","travel_cities":"нет"},
+  "bogutskaya-anna": {"name":"Анна Богуцкая","city":"Рош Аин (Израиль)","travel_cities":"Россия - Барнаул\n                 Саранск\n                 Симферополь\n                 Чебоксары\nВозможен выезд в Европу или другую страну"},
+  "kharina-natalya": {"name":"Наталья Харина","city":"Санкт Петербург","travel_cities":"Ижевск Израиль Иркутск Казань Минск Новосибирск"},
+  "polshkova-vera": {"name":"Вера Полшкова","city":"Москва","travel_cities":"Сорочинск.  При наличии организатора готова выезжать области Центрального, Северо-Западного и Приволжского федеральных округов, в Ставропольский край"},
+  "boldyreva-ekaterina": {"name":"Екатерина Болдырева","city":"Москва","travel_cities":"Ижевск, Казань, Оренбург"},
+  "yanushkevich-rimma": {"name":"Римма Янушкевич","city":"Подольск, Московская область","travel_cities":"Нет"},
+  "zayats-tatyana": {"name":"Татьяна Заяц","city":"Санкт Петербург","travel_cities":"Нижний Новгород\nПсков\nСочи"},
+  "lyakina-ganna": {"name":"Ганна Лякина","city":"Химки","travel_cities":"Екатеринбург, Нижний Тагил, Тюмень"},
+  "kozitsky-nikolay": {"name":"Николай Козицкий","city":"Санкт-Петербург","travel_cities":"Благовещенск, Владивосток, Красноярск, Лесосибирск, Находка, Рязань, Саранск, Уссурийск"},
+  "fedarkevich-alyona": {"name":"Алёна Федаркевич","city":"Дзержинск, Нижний Новгород","travel_cities":"Владимир, Гороховец, Иваново, Ковров"},
+  "anosova-yana": {"name":"Яна Аносова","city":"Москва","travel_cities":"Краснодар"},
+  "bugaeva-valeriya": {"name":"Валерия Бугаева","city":"Санкт-Петербург","travel_cities":"Владивосток\nКраснодар \nРостов-на-Дону\nСочи"},
+  "chugunov-ivan": {"name":"Иван Чугунов","city":"Москва","travel_cities":"-"},
+  "denisyeva-marina": {"name":"Марина Денисьева","city":"София (Болгария)","travel_cities":"Казань, Оренбург, Стамбул, Уфа"},
+  "sharkova-natalya": {"name":"Наталья Шаркова","city":"Москва","travel_cities":"Брянск, Волгоград, Кемерово, Челябинск, Череповец"},
+  "melkumov-grigory": {"name":"Григорий Мелкумов","city":"Санкт-Петербург","travel_cities":"Новосибирск\nНижний Новгород\nНефтеюганск\nНовый Уренгой\nКазань\nОмск\nСаратов\nСаранск\nЧебоксары\nПсков\nСанкт-Петербург"},
+  "utkina-anna": {"name":"Анна Уткина","city":"Москва и Пушкино","travel_cities":"нет"},
+  "abdullina-regina": {"name":"Регина Абдуллина","city":"Уфа","travel_cities":"Нет"},
+  "starodubtseva-marina": {"name":"Марина Стародубцева","city":"Красногорск","travel_cities":"Брянск"},
+  "rybakova-evgeniya": {"name":"Евгения Рыбакова","city":"Москва","travel_cities":"Дедовск, Звенигород, Истра, Красногорск"},
+  "pospelova-tatyana": {"name":"Татьяна Поспелова","city":"Лимассол, Кипр","travel_cities":"Республика Кипр"}
+};
+
+// Нормализация названия города
+function normCity(raw){
+  if(!raw) return '';
+  let t = raw.trim();
+  if(!t || /^(нет|—|-|–)$/i.test(t)) return '';
+  t = t.replace(/Санкт\s+Петербург/gi, 'Санкт-Петербург');
+  t = t.replace(/\s+/g,' ').trim();
+  return t;
+}
+
+// Из поля city берём «основной» город
+function primaryCity(field){
+  let t = normCity(field);
+  if(!t) return '';
+  // делим по запятой / слешу / « и »
+  let parts = t.split(/\s*\/\s*|\s*,\s*|\s+и\s+/).map(s=>s.trim()).filter(Boolean);
+  return parts[0] || t;
+}
+
+// Из travel_cities делаем массив городов
+function splitTravel(field){
+  if(!field) return [];
+  let t = field.trim();
+  if(!t || /^(нет|—|-|–)$/i.test(t)) return [];
+  // разделители: запятая, перенос, точка с запятой
+  let parts = t.split(/[,;\n]+/).map(s=>s.trim()).filter(Boolean);
+  // фильтруем мусор и длинные фразы (>40 символов — это уже описательный текст)
+  parts = parts.filter(p => !/^(нет|—|-|–)$/i.test(p) && p.length <= 40);
+  // нормализуем
+  return parts.map(normCity).filter(Boolean);
+}
+
+// Собираем индекс: { city: { home: [...], travel: [...] } }
+const cityIndex = {};
+function add(city, slug, name, mode){
+  if(!city) return;
+  if(!cityIndex[city]) cityIndex[city] = { home: [], travel: [] };
+  // не дублируем (один практик в travel + home одного города = только home)
+  const other = mode === 'home' ? 'travel' : 'home';
+  cityIndex[city][other] = cityIndex[city][other].filter(x => x.slug !== slug);
+  if(!cityIndex[city][mode].some(x => x.slug === slug)){
+    cityIndex[city][mode].push({ slug, name });
+  }
+}
+
+for(const [slug, p] of Object.entries(PRACTS)){
+  const home = primaryCity(p.city);
+  add(home, slug, p.name, 'home');
+  for(const tc of splitTravel(p.travel_cities)){
+    if(tc !== home) add(tc, slug, p.name, 'travel');
+  }
+}
+
+// Сортируем города по алфавиту (русский)
+const cities = Object.keys(cityIndex).sort((a,b) => a.localeCompare(b, 'ru'));
+
+// Рендер
+const grid = document.getElementById('citiesGrid');
+const chevSvg = `<svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+for(const city of cities){
+  const data = cityIndex[city];
+  const total = data.home.length + data.travel.length;
+  const block = document.createElement('div');
+  block.className = 'city-block';
+  block.dataset.city = city.toLowerCase();
+  let detail = '';
+  if(data.home.length){
+    detail += `<ul class="pract-group home"><div class="gh">в городе</div>` +
+      data.home.map(p => `<li data-slug="${p.slug}">${p.name}</li>`).join('') + `</ul>`;
+  }
+  if(data.travel.length){
+    detail += `<ul class="pract-group travel"><div class="gh">с выездом</div>` +
+      data.travel.map(p => `<li data-slug="${p.slug}">${p.name}</li>`).join('') + `</ul>`;
+  }
+  block.innerHTML =
+    `<div class="city-name" data-city="${city}">` +
+      `<span class="nm">${city}</span>` +
+      `<span class="cnt">${total}</span>` +
+      chevSvg +
+    `</div>` +
+    `<div class="city-detail">${detail}</div>`;
+  grid.appendChild(block);
+}
+
+// Клик по городу — toggle
+grid.addEventListener('click', e => {
+  const head = e.target.closest('.city-name');
+  if(!head) return;
+  head.parentElement.classList.toggle('open');
+});
+
+document.getElementById('citiesAccCount').textContent = `${cities.length} городов`;
+
+// Расхлоп
+const acc = document.getElementById('citiesAcc');
+document.getElementById('citiesAccToggle').addEventListener('click', () => {
+  acc.classList.toggle('open');
+});
+
+// Фильтр в расхлопе
+const filterInput = document.getElementById('citiesAccFilter');
+filterInput.addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll('.city-block').forEach(b => {
+    if(!q) { b.classList.remove('hidden'); return; }
+    b.classList.toggle('hidden', !b.dataset.city.includes(q));
+  });
+});
+
+// По умолчанию аккордеон открыт (чтобы прототип было видно сразу), но города внутри схлопнуты
+acc.classList.add('open');
+</script>
+</body>
+</html>
