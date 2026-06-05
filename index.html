@@ -159,7 +159,7 @@
   .modal .m-photo{position:relative;background:#7E3A2A;min-height:520px}
   .modal .m-photo .ph-stripes{position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.04) 0 14px, rgba(0,0,0,.06) 14px 28px)}
   .modal .m-photo .ph-tag{position:absolute;left:18px;bottom:18px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);background:rgba(0,0,0,.3);padding:6px 9px;border-radius:6px}
-  .modal .m-body{padding:36px 36px 32px;overflow-y:auto;display:flex;flex-direction:column;gap:0}
+  .modal .m-body{padding:36px 36px 32px;overflow-y:auto;min-height:0;max-height:calc(100vh - 48px);display:flex;flex-direction:column;gap:0}
   .modal .m-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);border:0;display:grid;place-items:center;cursor:pointer;color:#15161A;z-index:2}
   .modal .m-close:hover{background:#fff}
   .modal .m-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
@@ -174,7 +174,8 @@
   .modal .m-cta{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
 
   @media (max-width: 720px){
-    .modal{grid-template-columns:1fr;max-height:calc(100vh - 24px)}
+    .modal{grid-template-columns:1fr;max-height:calc(100vh - 24px);overflow-y:auto}
+    .modal .m-body{max-height:none;overflow:visible}
     .modal .m-photo{min-height:240px;aspect-ratio:1.2/1}
     .modal h3{font-size:28px}
     .top-row{flex-direction:column;align-items:flex-start;gap:14px}
@@ -476,6 +477,11 @@
         <div class="name">Римма Янушкевич</div>
         <div class="city"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7 7-13a7 7 0 1 0-14 0c0 6 7 13 7 13Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg>Подольск</div>
       </article>
+      <article class="pcard" data-id="mamaeva-lida">
+        <div class="ph" style="background-image:url(images/practitioner-photos/mamaeva-lida.jpg)"></div>
+        <div class="name">Лидия Мамаева</div>
+        <div class="city"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7 7-13a7 7 0 1 0-14 0c0 6 7 13 7 13Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg>Казань</div>
+      </article>
     </div>
   </div>
 </section>
@@ -691,8 +697,19 @@ let PRACTS = {};
 
     // CTA
     ctaEl.innerHTML = '';
-    if(p && p.website && p.website !== '-'){
-      const link = p.website.startsWith('http') ? p.website : 'https://' + p.website;
+    const rawSite = (p && p.website ? String(p.website).trim() : '');
+    const lowSite = rawSite.toLowerCase();
+    if(p && rawSite && lowSite !== '-' && lowSite !== 'нет'){
+      // website-поле бывает «грязным»: несколько ссылок через запятую, текст-подпись,
+      // голый @handle, или адрес без схемы. Вытаскиваем одну рабочую ссылку.
+      let link = '';
+      const urlMatch = rawSite.match(/https?:\/\/[^\s,]+/i);
+      if(urlMatch){
+        link = urlMatch[0];
+      } else {
+        const tok = rawSite.split(/[\s,]+/)[0];
+        link = tok.charAt(0) === '@' ? 'https://t.me/' + tok.slice(1) : 'https://' + tok;
+      }
       ctaEl.innerHTML = '<a href="'+escapeHtml(link)+'" target="_blank" rel="noopener" class="btn">Сайт / Telegram<span class="arr"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span></a>';
     }
 
