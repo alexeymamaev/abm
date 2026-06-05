@@ -310,5 +310,18 @@
     "travel_cities": "Республика Кипр",
     "bio": "Я практик АБМ, мама детей с ОВЗ, в данный момент работаю на Кипре и территории ЕС",
     "photo": null
+  },
+  "mamaeva-lida": {
+    "name": "Лидия Мамаева",
+    "city": "Казань",
+    "address": "",
+    "phone": "",
+    "email": "",
+    "website": "",
+    "home": "Нет",
+    "travel": "Нет",
+    "travel_cities": "нет",
+    "bio": "",
+    "photo": "mamaeva-lida.jpg"
   }
 }
