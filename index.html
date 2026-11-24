@@ -439,7 +439,7 @@
         <div class="away">Выезд: Барнаул, Бердск, Бийск, Горно-Алтайск, Омск</div>
       </article>
       <article class="pcard" data-id="polshkova-vera">
-        <div class="ph" style="background-image:url(images/practitioner-photos/polshkova-vera.jpg)"></div>
+        <div class="ph" style="background-image:url(images/practitioner-photos/polshkova-vera-2026-11-16.jpg)"></div>
         <div class="name">Вера Полшкова</div>
         <div class="city"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7 7-13a7 7 0 1 0-14 0c0 6 7 13 7 13Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg>Москва</div>
         <div class="away">Выезд: Брянск, Сорочинск</div>
@@ -692,7 +692,7 @@ let PRACTS = {};
       photoImg.src = 'images/practitioner-photos/' + p.photo;
       photoImg.alt = p.name;
       photoImg.style.display = '';
-      photoImg.style.objectPosition = (id === 'melkumov-grigory') ? 'center top' : '';
+      photoImg.style.objectPosition = (id === 'melkumov-grigory' || id === 'polshkova-vera') ? 'center top' : '';
       if(stripes) stripes.style.display = 'none';
     } else {
       if(stripes) stripes.style.display = '';
